@@ -415,18 +415,6 @@ public class HelloController {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        /*
-        // Bind the scaleX and scaleY to the StackPane's size
-        stackPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double scale = newVal.doubleValue() / 1200;  // Adjust based on your original width
-            hexGroup.setScaleX(scale);
-        });
-
-        stackPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double scale = newVal.doubleValue() / 1200;  // Adjust based on your original height
-            hexGroup.setScaleY(scale);
-        });
-         */
 
         // Bind scale based on the smaller of the width or height to keep aspect ratio
         ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
