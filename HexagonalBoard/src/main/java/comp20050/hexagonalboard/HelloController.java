@@ -2,6 +2,8 @@ package comp20050.hexagonalboard;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
@@ -413,6 +415,7 @@ public class HelloController {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+        /*
         // Bind the scaleX and scaleY to the StackPane's size
         stackPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double scale = newVal.doubleValue() / 1200;  // Adjust based on your original width
@@ -423,6 +426,24 @@ public class HelloController {
             double scale = newVal.doubleValue() / 1200;  // Adjust based on your original height
             hexGroup.setScaleY(scale);
         });
+         */
+
+        // Bind scale based on the smaller of the width or height to keep aspect ratio
+        ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
+            double width = stackPane.getWidth();
+            double height = stackPane.getHeight();
+
+            // Calculate the scale based on the smaller dimension
+            double scale = Math.min(width, height) / 1200; // 1200 is your reference size
+
+            // Apply the same scale to both X and Y to maintain aspect ratio
+            hexGroup.setScaleX(scale);
+            hexGroup.setScaleY(scale);
+        };
+
+        // Add listeners to both width and height
+        stackPane.widthProperty().addListener(sizeListener);
+        stackPane.heightProperty().addListener(sizeListener);
 
         assert hex1 != null : "fx:id=\"hex1\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert hex10 != null : "fx:id=\"hex10\" was not injected: check your FXML file 'hello-view.fxml'.";
