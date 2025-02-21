@@ -3,12 +3,20 @@ package comp20050.hexagonalboard;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Polygon;
 
 import static javafx.scene.paint.Color.BLACK;
 
 public class HelloController {
+
+    @FXML
+    private StackPane stackPane;
+
+    @FXML
+    private Group hexGroup;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -405,6 +413,17 @@ public class HelloController {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+        // Bind the scaleX and scaleY to the StackPane's size
+        stackPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            double scale = newVal.doubleValue() / 1200;  // Adjust based on your original width
+            hexGroup.setScaleX(scale);
+        });
+
+        stackPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+            double scale = newVal.doubleValue() / 1200;  // Adjust based on your original height
+            hexGroup.setScaleY(scale);
+        });
+
         assert hex1 != null : "fx:id=\"hex1\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert hex10 != null : "fx:id=\"hex10\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert hex11 != null : "fx:id=\"hex11\" was not injected: check your FXML file 'hello-view.fxml'.";
