@@ -12,10 +12,14 @@ public class Players extends JDialog {
     private JLabel player1;
     private JLabel player2;
 
+    private String name;
+    private String color;
+
     public Players() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+
 
         color1.setModel(new DefaultComboBoxModel(new String[] {"Red", "Blue"}));
         color2.setModel(new DefaultComboBoxModel(new String[] {"Blue", "Red"}));
@@ -57,6 +61,25 @@ public class Players extends JDialog {
         // add your code here if necessary
         dispose();
     }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+
 
     public static void main(String[] args) {
         Players dialog = new Players();
