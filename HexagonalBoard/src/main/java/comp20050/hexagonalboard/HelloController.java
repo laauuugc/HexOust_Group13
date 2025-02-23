@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Polygon;
@@ -19,6 +20,11 @@ public class HelloController {
 
     @FXML
     private Group hexGroup;
+
+    @FXML
+    private Label currentPlayer;
+
+    private int numClicks = 0;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -429,6 +435,10 @@ public class HelloController {
             hexGroup.setScaleY(scale);
         };
 
+        // Set initial player turn
+        currentPlayer.setText("PLAYER 1 NAME's turn");
+        currentPlayer.setStyle("-fx-text-fill: red;");
+
         // Add listeners to both width and height
         stackPane.widthProperty().addListener(sizeListener);
         stackPane.heightProperty().addListener(sizeListener);
@@ -567,6 +577,19 @@ public class HelloController {
         assert hex110918 != null : "fx:id=\"hex8\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert hex110919 != null : "fx:id=\"hex9\" was not injected: check your FXML file 'hello-view.fxml'.";
 
+    }
+
+    // Method for the Hello Button click to switch player turns
+    @FXML
+    protected void onHelloButtonClick() {
+        if (numClicks % 2 == 0) {
+            currentPlayer.setText("PLAYER 2 NAME's turn");
+            currentPlayer.setStyle("-fx-text-fill: blue;");
+        } else {
+            currentPlayer.setText("PLAYER 1 NAME's turn");
+            currentPlayer.setStyle("-fx-text-fill: red;");
+        }
+        numClicks++;
     }
 
 }
