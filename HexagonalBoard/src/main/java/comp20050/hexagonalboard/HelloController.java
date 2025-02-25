@@ -437,7 +437,7 @@ public class HelloController {
 
         // Set initial player turn
         currentPlayer.setText("PLAYER 1 NAME's turn");
-        currentPlayer.setStyle("-fx-text-fill: red;");
+        currentPlayer.setStyle("-fx-text-fill: #f4727d;");
 
         // Add listeners to both width and height
         stackPane.widthProperty().addListener(sizeListener);
@@ -584,10 +584,10 @@ public class HelloController {
     protected void onHelloButtonClick() {
         if (numClicks % 2 == 0) {
             currentPlayer.setText("PLAYER 2 NAME's turn");
-            currentPlayer.setStyle("-fx-text-fill: blue;");
+            currentPlayer.setStyle("-fx-text-fill: #86b3d3;");
         } else {
             currentPlayer.setText("PLAYER 1 NAME's turn");
-            currentPlayer.setStyle("-fx-text-fill: red;");
+            currentPlayer.setStyle("-fx-text-fill: #f4727d;");
         }
         numClicks++;
     }
