@@ -5,21 +5,24 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Polygon?>
 
+<?import javafx.scene.layout.HBox?>
 <StackPane fx:id="stackPane" style="-fx-background-color: #d8fcbc;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp20050.hexagonalboard.HelloController">
    <children>
 
       <VBox spacing="10.0" StackPane.alignment="TOP_LEFT" xmlns:fx="http://javafx.com/fxml">
          <children>
             <Label fx:id="currentPlayer" text="Player Turn" textFill="#6d4fd8" />
-            <Button onAction="#onHelloButtonClick" text="Change!" textFill="#6d4fd8" />
+            <!--<Button onAction="#onHelloButtonClick" text="Change!" textFill="#6d4fd8" /> -->
          </children>
          <padding>
-            <Insets bottom="0" left="10" right="0" top="10" />
+            <Insets left="10" top="10" />
          </padding>
       </VBox>
 

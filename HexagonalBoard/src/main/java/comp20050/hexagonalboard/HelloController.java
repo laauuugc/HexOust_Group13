@@ -1,7 +1,9 @@
 package comp20050.hexagonalboard;
 
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -9,9 +11,8 @@ import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
-
-import static javafx.scene.paint.Color.BLACK;
 
 public class HelloController {
 
@@ -24,7 +25,7 @@ public class HelloController {
     @FXML
     private Label currentPlayer;
 
-    private int numClicks = 0;
+    //private int numClicks = 0;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -412,11 +413,44 @@ public class HelloController {
 
     @FXML
     private Polygon hex9;
-
+/*
+    Old getHexID from when we had a button, no need for it anymore
     @FXML
     void getHexID(MouseEvent event) {
         Polygon hexagon = (Polygon) event.getSource();
         hexagon.setFill(BLACK);
+    }
+ */
+
+    private boolean isRedTurn = true; //RED starts
+    private final Set<Polygon> occupiedHexagons = new HashSet<>(); //store already clicked hexagons
+
+    //handles the click event when a hexagon is clicked
+    @FXML
+    void getHexID(MouseEvent event) {
+        Polygon hexagon = (Polygon) event.getSource();
+
+        //check if hexagon has already been clicked
+        if (occupiedHexagons.contains(hexagon)) {
+            return; //ignore clicks on already occupied hexagons
+        }
+
+        //assign colour based on current player's turn
+        if (isRedTurn) {
+            hexagon.setFill(Color.RED); //RED player's move
+            currentPlayer.setText("BLUE's Turn");
+            currentPlayer.setStyle("-fx-text-fill: blue;");
+        } else {
+            hexagon.setFill(Color.BLUE); //BLUE player's move
+            currentPlayer.setText("RED's Turn");
+            currentPlayer.setStyle("-fx-text-fill: red;");
+        }
+
+        //mark hexagon occupied
+        occupiedHexagons.add(hexagon);
+
+        //switch turns
+        isRedTurn = !isRedTurn;
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -580,6 +614,7 @@ public class HelloController {
     }
 
     // Method for the Hello Button click to switch player turns
+    /*
     @FXML
     protected void onHelloButtonClick() {
         if (numClicks % 2 == 0) {
@@ -591,5 +626,6 @@ public class HelloController {
         }
         numClicks++;
     }
+     */
 
 }
