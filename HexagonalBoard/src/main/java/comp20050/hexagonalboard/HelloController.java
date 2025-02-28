@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
 public class HelloController {
@@ -435,22 +436,26 @@ public class HelloController {
             return; //ignore clicks on already occupied hexagons
         }
 
-        //assign colour based on current player's turn
-        if (isRedTurn) {
-            hexagon.setFill(Color.RED); //RED player's move
-            currentPlayer.setText("BLUE's Turn");
-            currentPlayer.setStyle("-fx-text-fill: blue;");
-        } else {
-            hexagon.setFill(Color.BLUE); //BLUE player's move
-            currentPlayer.setText("RED's Turn");
-            currentPlayer.setStyle("-fx-text-fill: red;");
-        }
+        //get center of hexagon for stone placement
+        double centerX = hexagon.getLayoutX();
+        double centerY = hexagon.getLayoutY();
 
-        //mark hexagon occupied
+        //create stone(circle) with appropriate colour
+        Circle stone = new Circle(centerX, centerY, 20);
+        stone.setFill(isRedTurn ? Color.web("#f4727d") : Color.web("#86b3d3"));
+        stone.setStroke(Color.BLACK);
+        stone.setStrokeWidth(2);
+
+        //add stone to the hexagon's parent (the Group)
+        hexGroup.getChildren().add(stone);
+
+        //mark hexagon as occupied
         occupiedHexagons.add(hexagon);
 
         //switch turns
         isRedTurn = !isRedTurn;
+        currentPlayer.setText(isRedTurn ? "RED's Turn" : "BLUE's Turn");
+        currentPlayer.setStyle(isRedTurn ? "-fx-text-fill: #f4727d;" : "-fx-text-fill: #86b3d3;");
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
