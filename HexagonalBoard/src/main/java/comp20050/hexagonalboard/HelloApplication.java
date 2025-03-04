@@ -13,12 +13,33 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        //run Swing dialogs on the Swing thread
+        SwingUtilities.invokeLater(() -> {
+            //launch Players dialog
+            Players playersDialog = new Players();
+            playersDialog.pack();
+            playersDialog.setVisible(true);
+
+            //sfter Players dialog closes launch Rules dialog
+            Rules rulesDialog = new Rules();
+            rulesDialog.pack();
+            rulesDialog.setVisible(true);
+
+            //after Rules dialog closes launch JavaFX app
+            Platform.runLater(() -> {
+                try {
+                    //load the JavaFX scene
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-                    stage.setTitle("HexOust!");
+                    Scene scene = new Scene(fxmlLoader.load());
+                    stage.setTitle("HexOust Board");
                     stage.setScene(scene);
                     stage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+            });
+        });
+    }
 
     public static void main(String[] args) {
         launch();
