@@ -15,15 +15,15 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         //run Swing dialogs on the Swing thread
         SwingUtilities.invokeLater(() -> {
-            //launch Players dialog
-            Players playersDialog = new Players();
-            playersDialog.pack();
-            playersDialog.setVisible(true);
-
-            //sfter Players dialog closes launch Rules dialog
+            //launch Rules dialog
             Rules rulesDialog = new Rules();
             rulesDialog.pack();
             rulesDialog.setVisible(true);
+
+            //after launch Rules dialog closes, launch Players dialog
+            Players playersDialog = new Players();
+            playersDialog.pack();
+            playersDialog.setVisible(true);
 
             //after Rules dialog closes launch JavaFX app
             Platform.runLater(() -> {
