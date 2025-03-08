@@ -17,6 +17,18 @@ import javafx.scene.shape.Polygon;
 
 public class HelloController {
 
+    private String namePl1;
+    private String namePl2;
+
+    public HelloController() {
+        Players players = new Players();
+        players.pack();
+        players.setVisible(true);
+
+        namePl1 = players.getname1();
+        namePl2 = players.getname2();
+    }
+
     @FXML
     private StackPane stackPane;
 
@@ -26,7 +38,9 @@ public class HelloController {
     @FXML
     private Label currentPlayer;
 
-    //private int numClicks = 0;
+    @FXML
+    private Label errorPane;
+
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -414,17 +428,10 @@ public class HelloController {
 
     @FXML
     private Polygon hex9;
-/*
-    Old getHexID from when we had a button, no need for it anymore
-    @FXML
-    void getHexID(MouseEvent event) {
-        Polygon hexagon = (Polygon) event.getSource();
-        hexagon.setFill(BLACK);
-    }
- */
 
     private boolean isRedTurn = true; //RED starts
     private final Set<Polygon> occupiedHexagons = new HashSet<>(); //store already clicked hexagons
+
 
     //handles the click event when a hexagon is clicked
     @FXML
@@ -454,7 +461,7 @@ public class HelloController {
 
         //switch turns
         isRedTurn = !isRedTurn;
-        currentPlayer.setText(isRedTurn ? "RED's Turn" : "BLUE's Turn");
+        currentPlayer.setText(isRedTurn ? namePl1 + "'s turn (Red)" : namePl2 + "'s turn (Blue)");
         currentPlayer.setStyle(isRedTurn ? "-fx-text-fill: #f4727d;" : "-fx-text-fill: #86b3d3;");
     }
 
@@ -475,8 +482,11 @@ public class HelloController {
         };
 
         // Set initial player turn
-        currentPlayer.setText("PLAYER 1 NAME's turn");
+        currentPlayer.setText(namePl1 + "'s turn (Red)");
         currentPlayer.setStyle("-fx-text-fill: #f4727d;");
+        errorPane.setText("");
+        //showPlacingError();
+
 
         // Add listeners to both width and height
         stackPane.widthProperty().addListener(sizeListener);
@@ -615,22 +625,16 @@ public class HelloController {
         assert hex110917 != null : "fx:id=\"hex7\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert hex110918 != null : "fx:id=\"hex8\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert hex110919 != null : "fx:id=\"hex9\" was not injected: check your FXML file 'hello-view.fxml'.";
-
     }
 
-    // Method for the Hello Button click to switch player turns
-    /*
-    @FXML
-    protected void onHelloButtonClick() {
-        if (numClicks % 2 == 0) {
-            currentPlayer.setText("PLAYER 2 NAME's turn");
-            currentPlayer.setStyle("-fx-text-fill: #86b3d3;");
-        } else {
-            currentPlayer.setText("PLAYER 1 NAME's turn");
-            currentPlayer.setStyle("-fx-text-fill: #f4727d;");
+
+    public void showPlacingError(){
+        boolean error = true;
+        if (error){
+            errorPane.setText("Error: Invalid cell placement");
+            errorPane.setStyle("-fx-text-fill: #f4727d;");
+
         }
-        numClicks++;
-    }
-     */
 
+    }
 }

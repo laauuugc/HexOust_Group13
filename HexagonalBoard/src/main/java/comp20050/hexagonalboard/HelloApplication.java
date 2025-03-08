@@ -20,12 +20,7 @@ public class HelloApplication extends Application {
             rulesDialog.pack();
             rulesDialog.setVisible(true);
 
-            //after launch Rules dialog closes, launch Players dialog
-            Players playersDialog = new Players();
-            playersDialog.pack();
-            playersDialog.setVisible(true);
-
-            //after Rules dialog closes launch JavaFX app
+            //after Rules dialog closes launch JavaFX app (that will start the Players info before starting the board)
             Platform.runLater(() -> {
                 try {
                     //load the JavaFX scene
@@ -40,6 +35,7 @@ public class HelloApplication extends Application {
             });
         });
     }
+
 
     public static void main(String[] args) {
         launch();
