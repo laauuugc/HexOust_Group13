@@ -41,6 +41,9 @@ public class HelloController {
     @FXML
     private Label errorPane;
 
+    @FXML
+    private Circle currentCircle;
+
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -461,8 +464,10 @@ public class HelloController {
 
         //switch turns
         isRedTurn = !isRedTurn;
-        currentPlayer.setText(isRedTurn ? namePl1 + "'s turn (Red)" : namePl2 + "'s turn (Blue)");
+        currentCircle.setFill(isRedTurn ?Color.web("#f4727d"): Color.web("#86b3d3"));
+        currentPlayer.setText(isRedTurn ? namePl1 + "'s turn" : namePl2 + "'s turn");
         currentPlayer.setStyle(isRedTurn ? "-fx-text-fill: #f4727d;" : "-fx-text-fill: #86b3d3;");
+
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -482,11 +487,12 @@ public class HelloController {
         };
 
         // Set initial player turn
-        currentPlayer.setText(namePl1 + "'s turn (Red)");
+        currentCircle.setFill(Color.web("#f4727d"));
+        currentPlayer.setText(namePl1 + "'s turn");
         currentPlayer.setStyle("-fx-text-fill: #f4727d;");
         errorPane.setText("");
-        //showPlacingError();
-
+        //showPlacingError(); // used to show the error, doesn't have an action that triggers it yet
+        //errorPane.setText("");
 
         // Add listeners to both width and height
         stackPane.widthProperty().addListener(sizeListener);
@@ -631,10 +637,8 @@ public class HelloController {
     public void showPlacingError(){
         boolean error = true;
         if (error){
-            errorPane.setText("Error: Invalid cell placement");
+            errorPane.setText("Error: Invalid cell placement, try again");
             errorPane.setStyle("-fx-text-fill: #f4727d;");
-
         }
-
     }
 }
