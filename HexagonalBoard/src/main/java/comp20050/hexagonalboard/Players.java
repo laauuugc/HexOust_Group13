@@ -1,6 +1,7 @@
 package comp20050.hexagonalboard;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class Players extends JDialog {

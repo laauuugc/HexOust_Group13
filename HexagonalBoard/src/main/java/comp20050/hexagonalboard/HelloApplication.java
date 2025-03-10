@@ -7,12 +7,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import javax.swing.*;
+
 import java.io.IOException;
 
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-
         //run Swing dialogs on the Swing thread
         SwingUtilities.invokeLater(() -> {
             //launch Rules dialog
@@ -35,6 +35,7 @@ public class HelloApplication extends Application {
             });
         });
     }
+
 
     public static void main(String[] args) {
         launch();

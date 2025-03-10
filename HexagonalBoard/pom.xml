@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>comp20050</groupId>
-    <artifactId>HexOust_S2_BoardWithNC</artifactId>
+    <artifactId>HexagonalBoard</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>HexagonalBoard</name>
 
