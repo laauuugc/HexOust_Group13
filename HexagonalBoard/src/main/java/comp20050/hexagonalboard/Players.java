@@ -1,34 +1,31 @@
 package comp20050.hexagonalboard;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class Players extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
-    private JButton buttonCancel;
     private JTextField name1;
     private JTextField name2;
-    private JComboBox color2;
-    private JComboBox color1;
     private JLabel player1;
     private JLabel player2;
+    private JLabel red;
+    private JLabel blue;
 
-    private String name;
-    private String color;
+    // variables to pass and use in the other classes
+    private String player1Name;
+    private String player2Name;
+    private String player1Color;
+    private String player2Color;
 
     public Players() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
-
-        color1.setModel(new DefaultComboBoxModel(new String[] {"Red", "Blue"}));
-        color2.setModel(new DefaultComboBoxModel(new String[] {"Blue", "Red"}));
-
         buttonOK.addActionListener(e -> onOK());
-
-        buttonCancel.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -40,35 +37,34 @@ public class Players extends JDialog {
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+            }
+
+    private void centerFrame(Players players) {
     }
 
-    private void onOK() {
-        // add your code here
+    public void onOK() {
+        player1Name= getname1();
+        player1Color= "red";
+
+        player2Name= getname2();
+        player2Color= "blue";
+
         dispose();
     }
+
+    public String getname1(){
+        return name1.getText();
+    }
+
+    public String getname2(){
+        return name2.getText();
+    }
+
 
     private void onCancel() {
         // add your code here if necessary
         dispose();
     }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
 
 
     public static void main(String[] args) {

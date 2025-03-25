@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.Double?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Group?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Polygon?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.layout.HBox?>
-<StackPane fx:id="stackPane" style="-fx-background-color: #d8fcbc;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp20050.hexagonalboard.HelloController">
+<StackPane fx:id="stackPane" style="-fx-background-color: #d8fcbc;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp20050.hexagonalboard.HelloController">
    <children>
 
       <VBox spacing="10.0" StackPane.alignment="TOP_LEFT" xmlns:fx="http://javafx.com/fxml">
          <children>
-            <Label fx:id="currentPlayer" text="Player Turn" textFill="#6d4fd8" />
+            <Label fx:id="currentPlayer" prefHeight="30.0" prefWidth="422.0" text="Player Turn" textFill="#6d4fd8">
+               <font>
+                  <Font name="Segoe Print Bold" size="16.0" />
+               </font>
+               <graphic>
+                  <Circle fx:id="currentCircle" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+               </graphic></Label>
+            <Label fx:id="errorPane" text="Error pane" textFill="#f4747d">
+               <font>
+                  <Font name="Segoe Print Bold" size="20.0" />
+               </font></Label>
             <!--<Button onAction="#onHelloButtonClick" text="Change!" textFill="#6d4fd8" /> -->
          </children>
          <padding>
