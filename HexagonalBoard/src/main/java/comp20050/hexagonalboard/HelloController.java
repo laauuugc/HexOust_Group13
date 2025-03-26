@@ -1,9 +1,7 @@
 package comp20050.hexagonalboard;
 
 import java.net.URL;
-import java.util.HashSet;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -15,18 +13,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
+import static javafx.scene.paint.Color.*;
+
 public class HelloController {
+    private String namePl1 = "Player 1"; // Default name if not set
+    private String namePl2 = "Player 2";
+    protected boolean playerTurn = false; // false= red turn true= blue turn
 
-    private String namePl1;
-    private String namePl2;
-
-    public HelloController() {
-        Players players = new Players();
-        players.pack();
-        players.setVisible(true);
-
-        namePl1 = players.getname1();
-        namePl2 = players.getname2();
+    //Set Player Names
+    public void setPlayerNames(String player1, String player2) {
+        this.namePl1 = player1;
+        this.namePl2 = player2;
+        updateTurnLabel(); // Update UI with correct player turn
+    }
+    private void updateTurnLabel() {
+        currentPlayer.setText(playerTurn ? namePl2 + "'s turn" : namePl1 + "'s turn");
+        currentPlayer.setStyle(playerTurn ? "-fx-text-fill: blue;" : "-fx-text-fill: red;");
     }
 
     @FXML
@@ -38,18 +40,155 @@ public class HelloController {
     @FXML
     private Label currentPlayer;
 
-    @FXML
-    private Label errorPane;
-
-    @FXML
-    private Circle currentCircle;
-
-
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
     @FXML // URL location of the FXML file that was given to the FXMLLoader
     private URL location;
+
+    @FXML
+    private Label errorPane;
+
+
+    @FXML
+    private Polygon[] hexagons= new Polygon[127];
+
+    protected void fillHexagonsArray(){
+        hexagons[0] = hex1;
+        hexagons[1] = hex2;
+        hexagons[2] = hex3;
+        hexagons[3] = hex4;
+        hexagons[4] = hex5;
+        hexagons[5] = hex6;
+        hexagons[6] = hex7;
+        hexagons[7] = hex8;
+        hexagons[8] = hex9;
+        hexagons[9] = hex10;
+        hexagons[10] = hex11;
+        hexagons[11] = hex12;
+        hexagons[12] = hex13;
+        hexagons[13] = hex14;
+        hexagons[14] = hex15;
+        hexagons[15] = hex16;
+        hexagons[16] = hex17;
+        hexagons[17] = hex18;
+        hexagons[18] = hex19;
+
+        hexagons[19] = hex110;
+        hexagons[20] = hex1101;
+        hexagons[21] = hex1102;
+        hexagons[22] = hex1103;
+        hexagons[23] = hex1104;
+        hexagons[24] = hex1105;
+        hexagons[25] = hex1106;
+        hexagons[26] = hex1107;
+        hexagons[27] = hex1108;
+        hexagons[28] = hex1109;
+        hexagons[29] = hex11010;
+        hexagons[30] = hex110101;
+        hexagons[31] = hex1101011;
+        hexagons[32] = hex1101012;
+        hexagons[33] = hex1101013;
+        hexagons[34] = hex11091;
+        hexagons[35] = hex11051;
+        hexagons[36] = hex110511;
+        hexagons[37] = hex110512;
+
+        hexagons[38] = hex1105121;
+        hexagons[39] = hex11051211;
+        hexagons[40] = hex11051212;
+        hexagons[41] = hex11010131;
+        hexagons[42] = hex11010132;
+        hexagons[43] = hex11010133;
+        hexagons[44] = hex11010134;
+        hexagons[45] = hex11010135;
+        hexagons[46] = hex11010136;
+        hexagons[47] = hex110510;
+        hexagons[48] = hex110512121;
+        hexagons[49] = hex1105121211;
+        hexagons[50] = hex1105121212;
+        hexagons[51] = hex11051212121;
+        hexagons[52] = hex11051212122;
+        hexagons[53] = hex11051212123;
+        hexagons[54] = hex11051212124;
+        hexagons[55] = hex110513;
+        hexagons[56] = hex110514;
+
+        hexagons[57] = hex11052;
+        hexagons[58] = hex11053;
+        hexagons[59] = hex11054;
+        hexagons[60] = hex11055;
+        hexagons[61] = hex11056;
+        hexagons[62] = hex11057;
+        hexagons[63] = hex110571;
+        hexagons[64] = hex1105711;
+        hexagons[65] = hex1105712;
+        hexagons[66] = hex11057121;
+        hexagons[67] = hex110571210;
+        hexagons[68] = hex11057122;
+        hexagons[69] = hex11057123;
+        hexagons[70] = hex11057124;
+        hexagons[71] = hex110571241;
+        hexagons[72] = hex110571242;
+        hexagons[73] = hex110571243;
+        hexagons[74] = hex110571244;
+        hexagons[75] = hex110571245;
+
+        hexagons[76] = hex11057125;
+        hexagons[77] = hex11057126;
+        hexagons[78] = hex110571261;
+        hexagons[79] = hex110571262;
+        hexagons[80] = hex110571263;
+        hexagons[81] = hex110571264;
+        hexagons[82] = hex110571265;
+        hexagons[83] = hex110571266;
+        hexagons[84] = hex110571267;
+        hexagons[85] = hex11057127;
+        hexagons[86] = hex11057128;
+        hexagons[87] = hex11057129;
+        hexagons[88] = hex1105713;
+        hexagons[89] = hex1105714;
+        hexagons[90] = hex1105715;
+        hexagons[91] = hex1105716;
+        hexagons[92] = hex11057161;
+        hexagons[93] = hex11057162;
+
+        hexagons[94] = hex11057163;
+        hexagons[95] = hex11057164;
+        hexagons[96] = hex11057165;
+        hexagons[97] = hex110571651;
+        hexagons[98] = hex110571652;
+        hexagons[99] = hex110571653;
+        hexagons[100] = hex110572;
+        hexagons[101] = hex110573;
+        hexagons[102] = hex110574;
+        hexagons[103] = hex1105741;
+        hexagons[104] = hex1105742;
+        hexagons[105] = hex1105743;
+        hexagons[106] = hex1105744;
+        hexagons[107] = hex11057441;
+        hexagons[108] = hex11057442;
+        hexagons[109] = hex11057443;
+        hexagons[110] = hex11057444;
+        hexagons[111] = hex11058;
+
+        hexagons[112] = hex11059;
+        hexagons[113] = hex110911;
+        hexagons[114] = hex1109110;
+        hexagons[115] = hex1109111;
+        hexagons[116] = hex1109112;
+        hexagons[117] = hex1109113;
+        hexagons[118] = hex1109114;
+        hexagons[119] = hex110912;
+        hexagons[120] = hex110913;
+        hexagons[121] = hex110914;
+        hexagons[122] = hex110915;
+        hexagons[123] = hex110916;
+        hexagons[124] = hex110917;
+        hexagons[125] = hex110918;
+        hexagons[126] = hex110919;
+
+    }
 
     @FXML
     private Polygon hex1;
@@ -432,46 +571,97 @@ public class HelloController {
     @FXML
     private Polygon hex9;
 
-    private boolean isRedTurn = true; //RED starts
-    private final Set<Polygon> occupiedHexagons = new HashSet<>(); //store already clicked hexagons
-
-
-    //handles the click event when a hexagon is clicked
-    @FXML
-    void getHexID(MouseEvent event) {
-        Polygon hexagon = (Polygon) event.getSource();
-
-        //check if hexagon has already been clicked
-        if (occupiedHexagons.contains(hexagon)) {
-            return; //ignore clicks on already occupied hexagons
+    void changePlayerTurnLabel(){
+        if(playerTurn){
+            currentPlayer.setText(namePl2+"'s turn");
+            currentPlayer.setStyle("-fx-text-fill: blue;");
+        }else{
+            currentPlayer.setText(namePl1+"'s turn");
+            currentPlayer.setStyle("-fx-text-fill: red;");
         }
+    }
 
-        //get center of hexagon for stone placement
+    private void addStone(Polygon hexagon, Color color) {
         double centerX = hexagon.getLayoutX();
         double centerY = hexagon.getLayoutY();
 
-        //create stone(circle) with appropriate colour
-        Circle stone = new Circle(centerX, centerY, 20);
-        stone.setFill(isRedTurn ? Color.web("#f4727d") : Color.web("#86b3d3"));
+        Circle stone = new Circle(centerX, centerY, 20); // Radius 20 for a nice fit
+        stone.setFill(color);
         stone.setStroke(Color.BLACK);
         stone.setStrokeWidth(2);
 
-        //add stone to the hexagon's parent (the Group)
-        hexGroup.getChildren().add(stone);
+        hexGroup.getChildren().add(stone); // Add the stone to the board
+    }
 
-        //mark hexagon as occupied
-        occupiedHexagons.add(hexagon);
+    @FXML
+    void getHexID(MouseEvent event) {
+        Polygon hexagon = (Polygon) event.getSource();
+        int x = (int) hexagon.getLayoutX();
+        int y = (int) hexagon.getLayoutY();
 
-        //switch turns
-        isRedTurn = !isRedTurn;
-        currentCircle.setFill(isRedTurn ?Color.web("#f4727d"): Color.web("#86b3d3"));
-        currentPlayer.setText(isRedTurn ? namePl1 + "'s turn" : namePl2 + "'s turn");
-        currentPlayer.setStyle(isRedTurn ? "-fx-text-fill: #f4727d;" : "-fx-text-fill: #86b3d3;");
+        if (playerTurn) { // Blue turn
+            for (Polygon polygon : hexagons) {
+                int neighborX = (int) polygon.getLayoutX();
+                int neighborY = (int) polygon.getLayoutY();
 
+                if ((x == neighborX && y + 90 == neighborY && polygon.getFill() == BLUE)
+                        || (x == neighborX && y - 90 == neighborY && polygon.getFill() == BLUE)
+                        || (x + 75 == neighborX && y - 45 == neighborY && polygon.getFill() == BLUE)
+                        || (x + 75 == neighborX && y + 45 == neighborY && polygon.getFill() == BLUE)
+                        || (x - 75 == neighborX && y - 45 == neighborY && polygon.getFill() == BLUE)
+                        || (x - 75 == neighborX && y + 45 == neighborY && polygon.getFill() == BLUE)) {
+
+                    //Invalid move, error message and do nothing
+                    hexagon.setFill(Color.rgb(216, 176, 238));
+                    errorPane.setVisible(true);
+                    return;
+                }
+            }
+
+            //Valid NCP move, change hexagon colour and add stone
+            errorPane.setVisible(false);
+            hexagon.setFill(BLUE);
+            addStone(hexagon, Color.web("#86b3d3")); // Blue stone
+            playerTurn = false;
+
+        } else { // Red turn
+            for (Polygon polygon : hexagons) {
+                int neighborX = (int) polygon.getLayoutX();
+                int neighborY = (int) polygon.getLayoutY();
+
+                if ((x == neighborX && y + 90 == neighborY && polygon.getFill() == RED)
+                        || (x == neighborX && y - 90 == neighborY && polygon.getFill() == RED)
+                        || (x + 75 == neighborX && y - 45 == neighborY && polygon.getFill() == RED)
+                        || (x + 75 == neighborX && y + 45 == neighborY && polygon.getFill() == RED)
+                        || (x - 75 == neighborX && y - 45 == neighborY && polygon.getFill() == RED)
+                        || (x - 75 == neighborX && y + 45 == neighborY && polygon.getFill() == RED)) {
+
+                    //Invalid move, show error message and do nothing
+                    hexagon.setFill(Color.rgb(216, 176, 238));
+                    errorPane.setVisible(true);
+                    return;
+                }
+            }
+
+            //Valid NCP move, change hexagon colour & add stone
+            errorPane.setVisible(false);
+            hexagon.setFill(RED);
+            addStone(hexagon, Color.web("#f4727d")); // Red stone
+            playerTurn = true;
+        }
+        changePlayerTurnLabel();
+        updateTurnLabel();
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+
+        fillHexagonsArray();
+
+        currentPlayer.setText(namePl1 + "'s turn");
+        currentPlayer.setStyle("-fx-text-fill: red;");
+        errorPane.setText("Error: illegal placement");
+        errorPane.setVisible(false);
 
         // Bind scale based on the smaller of the width or height to keep aspect ratio
         ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
@@ -485,14 +675,6 @@ public class HelloController {
             hexGroup.setScaleX(scale);
             hexGroup.setScaleY(scale);
         };
-
-        // Set initial player turn
-        currentCircle.setFill(Color.web("#f4727d"));
-        currentPlayer.setText(namePl1 + "'s turn");
-        currentPlayer.setStyle("-fx-text-fill: #f4727d;");
-        errorPane.setText("");
-        //showPlacingError(); // used to show the error, doesn't have an action that triggers it yet
-        //errorPane.setText("");
 
         // Add listeners to both width and height
         stackPane.widthProperty().addListener(sizeListener);
@@ -631,14 +813,6 @@ public class HelloController {
         assert hex110917 != null : "fx:id=\"hex7\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert hex110918 != null : "fx:id=\"hex8\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert hex110919 != null : "fx:id=\"hex9\" was not injected: check your FXML file 'hello-view.fxml'.";
-    }
 
-
-    public void showPlacingError(){
-        boolean error = true;
-        if (error){
-            errorPane.setText("Error: Invalid cell placement, try again");
-            errorPane.setStyle("-fx-text-fill: #f4727d;");
-        }
     }
 }

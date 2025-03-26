@@ -10,24 +10,25 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
-import static java.lang.Math.abs;
 import static javafx.scene.paint.Color.*;
 
 public class HelloController {
+    private String namePl1 = "Player 1"; // Default name if not set
+    private String namePl2 = "Player 2";
+    protected boolean playerTurn = false; // false= red turn true= blue turn
 
-    private String namePl1;
-    private String namePl2;
-    protected boolean playerTurn=false; // false= red turn true= blue turn
-
-    public HelloController() {
-        Players players = new Players();
-        players.pack();
-        players.setVisible(true);
-
-        namePl1 = players.getname1();
-        namePl2 = players.getname2();
+    //Set Player Names
+    public void setPlayerNames(String player1, String player2) {
+        this.namePl1 = player1;
+        this.namePl2 = player2;
+        updateTurnLabel(); // Update UI with correct player turn
+    }
+    private void updateTurnLabel() {
+        currentPlayer.setText(playerTurn ? namePl2 + "'s turn" : namePl1 + "'s turn");
+        currentPlayer.setStyle(playerTurn ? "-fx-text-fill: blue;" : "-fx-text-fill: red;");
     }
 
     @FXML
@@ -38,8 +39,6 @@ public class HelloController {
 
     @FXML
     private Label currentPlayer;
-
-    private int numClicks = 0;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -582,75 +581,76 @@ public class HelloController {
         }
     }
 
+    private void addStone(Polygon hexagon, Color color) {
+        double centerX = hexagon.getLayoutX();
+        double centerY = hexagon.getLayoutY();
+
+        Circle stone = new Circle(centerX, centerY, 20); // Radius 20 for a nice fit
+        stone.setFill(color);
+        stone.setStroke(Color.BLACK);
+        stone.setStrokeWidth(2);
+
+        hexGroup.getChildren().add(stone); // Add the stone to the board
+    }
+
     @FXML
     void getHexID(MouseEvent event) {
         Polygon hexagon = (Polygon) event.getSource();
         int x = (int) hexagon.getLayoutX();
         int y = (int) hexagon.getLayoutY();
 
-        if(playerTurn){ //blue turn
-            for(int i=0;i<hexagons.length;i++){
-                int neighborX = (int) hexagons[i].getLayoutX();
-                int neighborY = (int) hexagons[i].getLayoutY();
+        if (playerTurn) { // Blue turn
+            for (Polygon polygon : hexagons) {
+                int neighborX = (int) polygon.getLayoutX();
+                int neighborY = (int) polygon.getLayoutY();
 
-                if( (x==neighborX && y+90==neighborY && hexagons[i].getFill()==BLUE)
-                        || (x==neighborX && y-90==neighborY && hexagons[i].getFill()==BLUE)
-                        || (x+75==neighborX && y-45==neighborY && hexagons[i].getFill()==BLUE)
-                        || (x+75==neighborX && y+45==neighborY && hexagons[i].getFill()==BLUE)
-                        || (x-75==neighborX && y-45==neighborY && hexagons[i].getFill()==BLUE)
-                        || (x-75==neighborX && y+45==neighborY && hexagons[i].getFill()==BLUE)){
+                if ((x == neighborX && y + 90 == neighborY && polygon.getFill() == BLUE)
+                        || (x == neighborX && y - 90 == neighborY && polygon.getFill() == BLUE)
+                        || (x + 75 == neighborX && y - 45 == neighborY && polygon.getFill() == BLUE)
+                        || (x + 75 == neighborX && y + 45 == neighborY && polygon.getFill() == BLUE)
+                        || (x - 75 == neighborX && y - 45 == neighborY && polygon.getFill() == BLUE)
+                        || (x - 75 == neighborX && y + 45 == neighborY && polygon.getFill() == BLUE)) {
 
-                    hexagon.setFill(Color.rgb(216,176,238));
+                    //Invalid move, error message and do nothing
+                    hexagon.setFill(Color.rgb(216, 176, 238));
                     errorPane.setVisible(true);
-
-                    playerTurn=true;
-                    changePlayerTurnLabel();
-                    break;
-                }else if(hexagon.getFill()==RED){
-                    errorPane.setVisible(false);
-                    hexagon.setFill(RED);
-                    break;
-                }else{
-                    errorPane.setVisible(false);
-                    hexagon.setFill(BLUE);
-
-                    playerTurn=false;
-                    changePlayerTurnLabel();
+                    return;
                 }
             }
-        }else{ //red turn
-            for(int i=0;i<hexagons.length;i++){
-                int neighborX = (int) hexagons[i].getLayoutX();
-                int neighborY = (int) hexagons[i].getLayoutY();
 
-                if( (x==neighborX && y+90==neighborY && hexagons[i].getFill()==RED)
-                        || (x==neighborX && y-90==neighborY && hexagons[i].getFill()==RED)
-                        || (x+75==neighborX && y-45==neighborY && hexagons[i].getFill()==RED)
-                        || (x+75==neighborX && y+45==neighborY && hexagons[i].getFill()==RED)
-                        || (x-75==neighborX && y-45==neighborY && hexagons[i].getFill()==RED)
-                        || (x-75==neighborX && y+45==neighborY && hexagons[i].getFill()==RED)){
+            //Valid NCP move, change hexagon colour and add stone
+            errorPane.setVisible(false);
+            hexagon.setFill(BLUE);
+            addStone(hexagon, Color.web("#86b3d3")); // Blue stone
+            playerTurn = false;
 
-                    hexagon.setFill(Color.rgb(216,176,238));
+        } else { // Red turn
+            for (Polygon polygon : hexagons) {
+                int neighborX = (int) polygon.getLayoutX();
+                int neighborY = (int) polygon.getLayoutY();
+
+                if ((x == neighborX && y + 90 == neighborY && polygon.getFill() == RED)
+                        || (x == neighborX && y - 90 == neighborY && polygon.getFill() == RED)
+                        || (x + 75 == neighborX && y - 45 == neighborY && polygon.getFill() == RED)
+                        || (x + 75 == neighborX && y + 45 == neighborY && polygon.getFill() == RED)
+                        || (x - 75 == neighborX && y - 45 == neighborY && polygon.getFill() == RED)
+                        || (x - 75 == neighborX && y + 45 == neighborY && polygon.getFill() == RED)) {
+
+                    //Invalid move, show error message and do nothing
+                    hexagon.setFill(Color.rgb(216, 176, 238));
                     errorPane.setVisible(true);
-
-                    playerTurn=false;
-                    changePlayerTurnLabel();
-
-                    break;
-                }else if(hexagon.getFill()==BLUE){
-                    errorPane.setVisible(false);
-                    hexagon.setFill(BLUE);
-                    break;
-                }else{
-                    errorPane.setVisible(false);
-                    hexagon.setFill(RED);
-
-                    playerTurn=true;
-                    changePlayerTurnLabel();
+                    return;
                 }
             }
+
+            //Valid NCP move, change hexagon colour & add stone
+            errorPane.setVisible(false);
+            hexagon.setFill(RED);
+            addStone(hexagon, Color.web("#f4727d")); // Red stone
+            playerTurn = true;
         }
-
+        changePlayerTurnLabel();
+        updateTurnLabel();
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
