@@ -28,7 +28,7 @@ public class HelloController {
     }
     private void updateTurnLabel() {
         currentPlayer.setText(playerTurn ? namePl2 + "'s turn" : namePl1 + "'s turn");
-        currentPlayer.setStyle(playerTurn ? "-fx-text-fill: blue;" : "-fx-text-fill: red;");
+        currentPlayer.setStyle(playerTurn ? "-fx-text-fill: #86b3d3;" : "-fx-text-fill: #f4727d;");
     }
 
     @FXML
@@ -576,11 +576,11 @@ public class HelloController {
     void changePlayerTurnLabel(){
         if(playerTurn){
             currentPlayer.setText(namePl2+"'s turn");
-            currentPlayer.setStyle("-fx-text-fill: blue;");
+            currentPlayer.setStyle("-fx-text-fill: #86b3d3;");
             currentCircle.setFill(Color.web("#86b3d3"));
         }else{
             currentPlayer.setText(namePl1+"'s turn");
-            currentPlayer.setStyle("-fx-text-fill: red;");
+            currentPlayer.setStyle("-fx-text-fill: #f4727d;");
             currentCircle.setFill(Color.web("#f4727d"));
         }
     }
