@@ -49,6 +49,8 @@ public class HelloController {
     @FXML
     private Label errorPane;
 
+    @FXML
+    private Circle currentCircle;
 
     @FXML
     private Polygon[] hexagons= new Polygon[127];
@@ -575,9 +577,11 @@ public class HelloController {
         if(playerTurn){
             currentPlayer.setText(namePl2+"'s turn");
             currentPlayer.setStyle("-fx-text-fill: blue;");
+            currentCircle.setFill(Color.web("#86b3d3"));
         }else{
             currentPlayer.setText(namePl1+"'s turn");
             currentPlayer.setStyle("-fx-text-fill: red;");
+            currentCircle.setFill(Color.web("#f4727d"));
         }
     }
 
