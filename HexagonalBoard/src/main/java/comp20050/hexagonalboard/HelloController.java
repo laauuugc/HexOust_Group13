@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -597,6 +598,14 @@ public class HelloController {
         hexGroup.getChildren().add(stone); // Add the stone to the board
     }
 
+    private void showErrorPopup() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Invalid Move");
+        alert.setHeaderText("Invalid, choose another hexagon!");
+       alert.setContentText("We don't want cheaters in this game...");
+        alert.showAndWait();
+    }
+
     @FXML
     void getHexID(MouseEvent event) {
         Polygon hexagon = (Polygon) event.getSource();
@@ -617,13 +626,14 @@ public class HelloController {
 
                     //Invalid move, error message and do nothing
                     hexagon.setFill(Color.rgb(216, 176, 238));
-                    errorPane.setVisible(true);
+                    //errorPane.setVisible(true);
+                    showErrorPopup();
                     return;
                 }
             }
 
             //Valid NCP move, change hexagon colour and add stone
-            errorPane.setVisible(false);
+            //errorPane.setVisible(false);
             hexagon.setFill(BLUE);
             addStone(hexagon, Color.web("#86b3d3")); // Blue stone
             playerTurn = false;
@@ -642,13 +652,14 @@ public class HelloController {
 
                     //Invalid move, show error message and do nothing
                     hexagon.setFill(Color.rgb(216, 176, 238));
-                    errorPane.setVisible(true);
+                    //errorPane.setVisible(true);
+                    showErrorPopup();
                     return;
                 }
             }
 
             //Valid NCP move, change hexagon colour & add stone
-            errorPane.setVisible(false);
+            //errorPane.setVisible(false);
             hexagon.setFill(RED);
             addStone(hexagon, Color.web("#f4727d")); // Red stone
             playerTurn = true;
@@ -664,8 +675,8 @@ public class HelloController {
 
         currentPlayer.setText(namePl1 + "'s turn");
         currentPlayer.setStyle("-fx-text-fill: red;");
-        errorPane.setText("Error: illegal placement");
-        errorPane.setVisible(false);
+       // errorPane.setText("Error: illegal placement");
+       // errorPane.setVisible(false);
 
         // Bind scale based on the smaller of the width or height to keep aspect ratio
         ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
