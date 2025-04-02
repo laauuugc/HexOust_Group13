@@ -1,7 +1,7 @@
 package comp20050.hexagonalboard;
 
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -20,6 +20,8 @@ public class HelloController {
     private String namePl1 = "Player 1"; // Default name if not set
     private String namePl2 = "Player 2";
     protected boolean playerTurn = false; // false= red turn true= blue turn
+
+    private final Map<Polygon, Color> boardState = new HashMap<>();
 
     //Set Player Names
     public void setPlayerNames(String player1, String player2) {
@@ -46,9 +48,6 @@ public class HelloController {
 
     @FXML // URL location of the FXML file that was given to the FXMLLoader
     private URL location;
-
-    @FXML
-    private Label errorPane;
 
     @FXML
     private Circle currentCircle;
@@ -574,7 +573,7 @@ public class HelloController {
     @FXML
     private Polygon hex9;
 
-    void changePlayerTurnLabel(){
+    void displayPlayerTurn(){
         if(playerTurn){
             currentPlayer.setText(namePl2+"'s turn");
             currentPlayer.setStyle("-fx-text-fill: #86b3d3;");
@@ -586,7 +585,7 @@ public class HelloController {
         }
     }
 
-    private void addStone(Polygon hexagon, Color color) {
+    private void placeStone(Polygon hexagon, Color color) {
         double centerX = hexagon.getLayoutX();
         double centerY = hexagon.getLayoutY();
 
@@ -596,77 +595,148 @@ public class HelloController {
         stone.setStrokeWidth(2);
 
         hexGroup.getChildren().add(stone); // Add the stone to the board
+        boardState.put(hexagon, color);
     }
 
     private void showErrorPopup() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Invalid Move");
         alert.setHeaderText("Invalid, choose another hexagon!");
-       alert.setContentText("We don't want cheaters in this game...");
+        alert.setContentText("We don't want cheaters in this game...");
         alert.showAndWait();
+    }
+
+    //returns list of neighbor hexagons
+    private List<Polygon> getNeighbours(Polygon hexagon) {
+        List<Polygon> neighbors = new ArrayList<>(); //empty list to store neighbors
+        double x = hexagon.getLayoutX();
+        double y = hexagon.getLayoutY();
+
+        //loop through every hexagon on board checking if it’s neighbor
+        for (Polygon neighbor : hexagons) {
+            double nx = neighbor.getLayoutX(); //neighbour position
+            double ny = neighbor.getLayoutY(); //neighbour position
+
+            if ((x == nx && y + 90 == ny) ||
+                    (x == nx && y - 90 == ny) ||
+                    (x + 75 == nx && y - 45 == ny) ||
+                    (x + 75 == nx && y + 45 == ny) ||
+                    (x - 75 == nx && y - 45 == ny) ||
+                    (x - 75 == nx && y + 45 == ny)) {
+                neighbors.add(neighbor);
+            }
+        }
+        return neighbors;
+    }
+
+    //counts number connected hexagons of same color
+    private int countGroupSize(Polygon start, Color color) {
+        Set<Polygon> visited = new HashSet<>(); //keep track of visited hexagons
+        return counting(start, color, visited);
+    }
+
+    //explores all hexagons connected to the starting one
+    private int counting(Polygon hexagon, Color color, Set<Polygon> visited) {
+        //already visited or not the right color, stop and return 0
+        if (visited.contains(hexagon) || boardState.get(hexagon) != color) return 0;
+        visited.add(hexagon); //mark as visited
+
+        int count = 1; //starts from 1 (hexagon itself is part of group)
+        //for every neighbour hexagon, calls dfsCount again to check if connected and same color
+        for (Polygon neighbor : getNeighbours(hexagon)) {
+            count += counting(neighbor, color, visited);
+        }
+        return count;
+    }
+
+    private void isCapturingMove(Polygon placedHex, Color playerColor) {
+        List<Polygon> opponentGroupsToRemove = new ArrayList<>(); //list store opponent groups to remove
+        Color opponentColor = (playerColor == RED) ? BLUE : RED; //get opponent's color
+
+        int newGroupSize = countGroupSize(placedHex, playerColor); //count size new group after placing stone
+
+        //check each neighbor
+        for (Polygon neighbor : getNeighbours(placedHex)) {
+            if (boardState.get(neighbor) == opponentColor) {
+                int opponentGroupSize = countGroupSize(neighbor, opponentColor);
+                if (opponentGroupSize < newGroupSize) { //if capturing move
+                    opponentGroupsToRemove.add(neighbor); //remove opponent's stones
+                }
+            }
+        }
+
+        for (Polygon opponentStone : opponentGroupsToRemove) {
+            removeStones(opponentStone, opponentColor);
+        }
+    }
+
+    private void removeStones(Polygon start, Color color) {
+        Set<Polygon> toRemove = new HashSet<>();
+        dfsCollect(start, color, toRemove);
+        List<Circle> stonesToRemove = new ArrayList<>();
+
+        for (Polygon hex : toRemove) {
+            boardState.remove(hex);
+            hex.setFill(Color.rgb(216, 176, 238)); //make empty(purple)
+
+            //remove the actual stone(circle)
+            for (var node : hexGroup.getChildren()) {
+                if (node instanceof Circle) {
+                    Circle stone = (Circle) node;
+                    if (stone.getCenterX() == hex.getLayoutX() && stone.getCenterY() == hex.getLayoutY()) {
+                        stonesToRemove.add(stone);
+                        break;
+                    }
+                }
+        }
+    }
+        //remove all captured stones from board
+        hexGroup.getChildren().removeAll(stonesToRemove);
+    }
+
+    private void dfsCollect(Polygon hexagon, Color color, Set<Polygon> toRemove) {
+        if (toRemove.contains(hexagon) || boardState.get(hexagon) != color) return;
+        toRemove.add(hexagon);
+
+        for (Polygon neighbor : getNeighbours(hexagon)) {
+            dfsCollect(neighbor, color, toRemove);
+        }
     }
 
     @FXML
     void getHexID(MouseEvent event) {
         Polygon hexagon = (Polygon) event.getSource();
-        int x = (int) hexagon.getLayoutX();
-        int y = (int) hexagon.getLayoutY();
+        if (boardState.containsKey(hexagon)) showErrorPopup(); //already placed a stone
 
-        if (playerTurn) { // Blue turn
-            for (Polygon polygon : hexagons) {
-                int neighborX = (int) polygon.getLayoutX();
-                int neighborY = (int) polygon.getLayoutY();
+        //determine player's turn
+        Color playerColor = playerTurn ? BLUE : RED;
+        Color opponentColor = playerTurn ? RED : BLUE;
 
-                if ((x == neighborX && y + 90 == neighborY && polygon.getFill() == BLUE)
-                        || (x == neighborX && y - 90 == neighborY && polygon.getFill() == BLUE)
-                        || (x + 75 == neighborX && y - 45 == neighborY && polygon.getFill() == BLUE)
-                        || (x + 75 == neighborX && y + 45 == neighborY && polygon.getFill() == BLUE)
-                        || (x - 75 == neighborX && y - 45 == neighborY && polygon.getFill() == BLUE)
-                        || (x - 75 == neighborX && y + 45 == neighborY && polygon.getFill() == BLUE)) {
+        List<Polygon> adjacent = getNeighbours(hexagon);
+        //check own stones
+        boolean connectsToOwn = adjacent.stream().anyMatch(h -> boardState.get(h) == playerColor);
+        //check opponent's stones
+        boolean connectsToOpponent = adjacent.stream().anyMatch(h -> boardState.get(h) == opponentColor);
 
-                    //Invalid move, error message and do nothing
-                    hexagon.setFill(Color.rgb(216, 176, 238));
-                    //errorPane.setVisible(true);
-                    showErrorPopup();
-                    return;
-                }
-            }
-
-            //Valid NCP move, change hexagon colour and add stone
-            //errorPane.setVisible(false);
-            hexagon.setFill(BLUE);
-            addStone(hexagon, Color.web("#86b3d3")); // Blue stone
-            playerTurn = false;
-
-        } else { // Red turn
-            for (Polygon polygon : hexagons) {
-                int neighborX = (int) polygon.getLayoutX();
-                int neighborY = (int) polygon.getLayoutY();
-
-                if ((x == neighborX && y + 90 == neighborY && polygon.getFill() == RED)
-                        || (x == neighborX && y - 90 == neighborY && polygon.getFill() == RED)
-                        || (x + 75 == neighborX && y - 45 == neighborY && polygon.getFill() == RED)
-                        || (x + 75 == neighborX && y + 45 == neighborY && polygon.getFill() == RED)
-                        || (x - 75 == neighborX && y - 45 == neighborY && polygon.getFill() == RED)
-                        || (x - 75 == neighborX && y + 45 == neighborY && polygon.getFill() == RED)) {
-
-                    //Invalid move, show error message and do nothing
-                    hexagon.setFill(Color.rgb(216, 176, 238));
-                    //errorPane.setVisible(true);
-                    showErrorPopup();
-                    return;
-                }
-            }
-
-            //Valid NCP move, change hexagon colour & add stone
-            //errorPane.setVisible(false);
-            hexagon.setFill(RED);
-            addStone(hexagon, Color.web("#f4727d")); // Red stone
-            playerTurn = true;
+        if (connectsToOwn && !connectsToOpponent) {
+            //only next to player's own stones not valid
+            showErrorPopup();
+            return;
         }
-        changePlayerTurnLabel();
+
+        hexagon.setFill(playerColor);
+        placeStone(hexagon, playerColor);
+
+        if (connectsToOwn && connectsToOpponent) {
+            isCapturingMove(hexagon, playerColor);
+        } else {
+            playerTurn = !playerTurn; // End turn on non-capturing move
+        }
+
+        displayPlayerTurn();
         updateTurnLabel();
     }
+
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -675,8 +745,6 @@ public class HelloController {
 
         currentPlayer.setText(namePl1 + "'s turn");
         currentPlayer.setStyle("-fx-text-fill: red;");
-       // errorPane.setText("Error: illegal placement");
-       // errorPane.setVisible(false);
 
         // Bind scale based on the smaller of the width or height to keep aspect ratio
         ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
