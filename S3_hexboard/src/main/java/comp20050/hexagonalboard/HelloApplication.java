@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -17,17 +18,21 @@ public class HelloApplication extends Application {
         SwingUtilities.invokeLater(() -> {
             //launch Rules dialog
             Rules rulesDialog = new Rules();
+            rulesDialog.setResizable(false);
+            centerRulesWindow(rulesDialog);
             rulesDialog.pack();
             rulesDialog.setVisible(true);
 
             // After Rules dialog closes, launch Players dialog
             Players playersDialog = new Players();
+            playersDialog.setResizable(false);
+            centerPlayersWindow(playersDialog);
             playersDialog.pack();
             playersDialog.setVisible(true);
 
             // Retrieve player names
-            String name1 = playersDialog.getname1().trim();
-            String name2 = playersDialog.getname2().trim();
+            String name1 = playersDialog.getName1().trim();
+            String name2 = playersDialog.getName2().trim();
 
             // Ensure default names if fields are empty
             if (name1.isEmpty()) name1 = "Player 1";
@@ -58,6 +63,22 @@ public class HelloApplication extends Application {
                 }
             });
         });
+    }
+
+    private void centerRulesWindow(Rules rulesDialog) {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension rulesDialogSize = rulesDialog.getSize();
+        int xRules = (screenSize.width - rulesDialogSize.width) / 3;
+        int yRules = (screenSize.height - rulesDialogSize.height) / 4;
+        rulesDialog.setLocation(xRules, yRules);
+    }
+
+    private void centerPlayersWindow(Players playersDialog) {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension playersDialogSize = playersDialog.getSize();
+        int xPlayer = (screenSize.width - playersDialogSize.width) / 3;
+        int yPlayer = (screenSize.height - playersDialogSize.height) / 4;
+        playersDialog.setLocation(xPlayer, yPlayer);
     }
 
     public static void main(String[] args) {

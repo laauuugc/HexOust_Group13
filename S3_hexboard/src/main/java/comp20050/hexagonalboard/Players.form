@@ -73,7 +73,7 @@
             <properties>
               <font name="Segoe Print" style="1"/>
               <foreground color="-16777216"/>
-              <text value="Name player 1"/>
+              <text value="Name player 1 :"/>
             </properties>
           </component>
           <component id="7a2f4" class="javax.swing.JLabel" binding="player2">
@@ -83,7 +83,7 @@
             <properties>
               <font name="Segoe Print" style="1"/>
               <foreground color="-16777216"/>
-              <text value="Name player 2"/>
+              <text value="Name player 2 :"/>
             </properties>
           </component>
           <hspacer id="430f6">
@@ -131,7 +131,7 @@
               <foreground color="-756611"/>
               <horizontalAlignment value="10"/>
               <horizontalTextPosition value="11"/>
-              <text value="RED PLAYER"/>
+              <text value="RED PLAYER 🔴"/>
             </properties>
           </component>
           <component id="c9a11" class="javax.swing.JLabel" binding="blue">
@@ -141,18 +141,18 @@
             <properties>
               <font name="Segoe Print" style="1"/>
               <foreground color="-7883821"/>
-              <text value="BLUE PLAYER"/>
+              <text value="BLUE PLAYER 🔵"/>
             </properties>
           </component>
         </children>
       </grid>
       <component id="17556" class="javax.swing.JLabel">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-2556740"/>
-          <font name="Showcard Gothic" size="16"/>
+          <font size="16" style="1"/>
           <foreground color="-9615144"/>
           <text value="PLAYERS INFO"/>
         </properties>

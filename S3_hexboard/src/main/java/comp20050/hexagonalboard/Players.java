@@ -36,35 +36,31 @@ public class Players extends JDialog {
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-            }
-
-    private void centerFrame(Players players) {
     }
 
     public void onOK() {
-        player1Name= getname1();
+        player1Name= getName1();
         player1Color= "red";
 
-        player2Name= getname2();
+        player2Name= getName2();
         player2Color= "blue";
 
         dispose();
     }
 
-    public String getname1(){
+    public String getName1(){
         return name1.getText();
     }
 
-    public String getname2(){
+    public String getName2(){
         return name2.getText();
     }
 
-    public String getplayer1Color(){return player1Color;}
-    public String getplayer2Color(){return player2Color;}
+    public String getPlayer1Color(){return player1Color;}
+    public String getPlayer2Color(){return player2Color;}
 
 
     private void onCancel() {
-        // add your code here if necessary
         dispose();
     }
 

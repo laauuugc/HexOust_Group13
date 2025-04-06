@@ -1,6 +1,5 @@
 package comp20050.hexagonalboard;
 
-import javafx.scene.shape.Polygon;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

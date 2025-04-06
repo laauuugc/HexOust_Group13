@@ -14,39 +14,37 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
-import static javafx.scene.paint.Color.*;
-
 public class HelloController {
-    private String namePl1 = "Player 1"; // Default name if not set
-    private String namePl2 = "Player 2";
-    protected boolean playerTurn = false; // false= red turn true= blue turn
+        private String namePl1 = "Player 1"; // Default name if not set
+        private String namePl2 = "Player 2";
+        protected boolean playerTurn = false; // false= red turn true= blue turn
 
-    public static final Color RED = Color.web("#f4727d");
-    public static final Color BLUE = Color.web("#86b3d3");
+        public static final Color RED = Color.web("#f4727d");
+        public static final Color BLUE = Color.web("#86b3d3");
 
-    private final Map<Polygon, Color> boardState = new HashMap<>();
+        private final Map<Polygon, Color> boardState = new HashMap<>();
 
-    //Set Player Names
-    public void setPlayerNames(String player1, String player2) {
+        //Set Player Names
+        public void setPlayerNames(String player1, String player2) {
         this.namePl1 = player1;
         this.namePl2 = player2;
         updateTurnLabel(); // Update UI with correct player turn
     }
 
-    public String getPlayer1Name(){
+        public String getPlayer1Name(){
         return this.namePl1;
     }
-    public String getPlayer2Name(){
+        public String getPlayer2Name(){
         return this.namePl2;
     }
-    public Boolean getPlayerTurn(){
+        public Boolean getPlayerTurn(){
         return this.playerTurn;
     }
-    public Polygon[] getHexagons() {
+        public Polygon[] getHexagons() {
         return hexagons;
     }
 
-    private void updateTurnLabel() {
+        private void updateTurnLabel() {
         currentPlayer.setText(playerTurn ? namePl2 + "'s turn" : namePl1 + "'s turn");
         currentPlayer.setStyle(playerTurn ? "-fx-text-fill: #86b3d3;" : "-fx-text-fill: #f4727d;");
         currentCircle.setFill(playerTurn ? BLUE : RED);
@@ -55,28 +53,28 @@ public class HelloController {
         System.out.println("Turn: " + currentPlayer.getText());
     }
 
-    @FXML
-    private StackPane stackPane;
+        @FXML
+        private StackPane stackPane;
 
-    @FXML
-    private Group hexGroup;
+        @FXML
+        private Group hexGroup;
 
-    @FXML
-    private Label currentPlayer;
+        @FXML
+        private Label currentPlayer;
 
-    @FXML // ResourceBundle that was given to the FXMLLoader
-    private ResourceBundle resources;
+        @FXML // ResourceBundle that was given to the FXMLLoader
+        private ResourceBundle resources;
 
-    @FXML // URL location of the FXML file that was given to the FXMLLoader
-    private URL location;
+        @FXML // URL location of the FXML file that was given to the FXMLLoader
+        private URL location;
 
-    @FXML
-    private Circle currentCircle;
+        @FXML
+        private Circle currentCircle;
 
-    @FXML
-    private Polygon[] hexagons= new Polygon[127];
+        @FXML
+        private Polygon[] hexagons= new Polygon[127];
 
-    protected void fillHexagonsArray(){
+        protected void fillHexagonsArray(){
         hexagons[0] = hex1;
         hexagons[1] = hex2;
         hexagons[2] = hex3;
@@ -213,403 +211,403 @@ public class HelloController {
 
     }
 
-    @FXML
-    private Polygon hex1;
+        @FXML
+        private Polygon hex1;
 
-    @FXML
-    private Polygon hex10;
+        @FXML
+        private Polygon hex10;
 
-    @FXML
-    private Polygon hex11;
+        @FXML
+        private Polygon hex11;
 
-    @FXML
-    private Polygon hex110;
+        @FXML
+        private Polygon hex110;
 
-    @FXML
-    private Polygon hex1101;
+        @FXML
+        private Polygon hex1101;
 
-    @FXML
-    private Polygon hex11010;
+        @FXML
+        private Polygon hex11010;
 
-    @FXML
-    private Polygon hex110101;
+        @FXML
+        private Polygon hex110101;
 
-    @FXML
-    private Polygon hex1101011;
+        @FXML
+        private Polygon hex1101011;
 
-    @FXML
-    private Polygon hex1101012;
+        @FXML
+        private Polygon hex1101012;
 
-    @FXML
-    private Polygon hex1101013;
+        @FXML
+        private Polygon hex1101013;
 
-    @FXML
-    private Polygon hex11010131;
+        @FXML
+        private Polygon hex11010131;
 
-    @FXML
-    private Polygon hex11010132;
+        @FXML
+        private Polygon hex11010132;
 
-    @FXML
-    private Polygon hex11010133;
+        @FXML
+        private Polygon hex11010133;
 
-    @FXML
-    private Polygon hex11010134;
+        @FXML
+        private Polygon hex11010134;
 
-    @FXML
-    private Polygon hex11010135;
+        @FXML
+        private Polygon hex11010135;
 
-    @FXML
-    private Polygon hex11010136;
+        @FXML
+        private Polygon hex11010136;
 
-    @FXML
-    private Polygon hex1102;
+        @FXML
+        private Polygon hex1102;
 
-    @FXML
-    private Polygon hex1103;
+        @FXML
+        private Polygon hex1103;
 
-    @FXML
-    private Polygon hex1104;
+        @FXML
+        private Polygon hex1104;
 
-    @FXML
-    private Polygon hex1105;
+        @FXML
+        private Polygon hex1105;
 
-    @FXML
-    private Polygon hex11051;
+        @FXML
+        private Polygon hex11051;
 
-    @FXML
-    private Polygon hex110510;
+        @FXML
+        private Polygon hex110510;
 
-    @FXML
-    private Polygon hex110511;
+        @FXML
+        private Polygon hex110511;
 
-    @FXML
-    private Polygon hex110512;
+        @FXML
+        private Polygon hex110512;
 
-    @FXML
-    private Polygon hex1105121;
+        @FXML
+        private Polygon hex1105121;
 
-    @FXML
-    private Polygon hex11051211;
+        @FXML
+        private Polygon hex11051211;
 
-    @FXML
-    private Polygon hex11051212;
+        @FXML
+        private Polygon hex11051212;
 
-    @FXML
-    private Polygon hex110512121;
+        @FXML
+        private Polygon hex110512121;
 
-    @FXML
-    private Polygon hex1105121211;
+        @FXML
+        private Polygon hex1105121211;
 
-    @FXML
-    private Polygon hex1105121212;
+        @FXML
+        private Polygon hex1105121212;
 
-    @FXML
-    private Polygon hex11051212121;
+        @FXML
+        private Polygon hex11051212121;
 
-    @FXML
-    private Polygon hex11051212122;
+        @FXML
+        private Polygon hex11051212122;
 
-    @FXML
-    private Polygon hex11051212123;
+        @FXML
+        private Polygon hex11051212123;
 
-    @FXML
-    private Polygon hex11051212124;
+        @FXML
+        private Polygon hex11051212124;
 
-    @FXML
-    private Polygon hex110513;
+        @FXML
+        private Polygon hex110513;
 
-    @FXML
-    private Polygon hex110514;
+        @FXML
+        private Polygon hex110514;
 
-    @FXML
-    private Polygon hex11052;
+        @FXML
+        private Polygon hex11052;
 
-    @FXML
-    private Polygon hex11053;
+        @FXML
+        private Polygon hex11053;
 
-    @FXML
-    private Polygon hex11054;
+        @FXML
+        private Polygon hex11054;
 
-    @FXML
-    private Polygon hex11055;
+        @FXML
+        private Polygon hex11055;
 
-    @FXML
-    private Polygon hex11056;
+        @FXML
+        private Polygon hex11056;
 
-    @FXML
-    private Polygon hex11057;
+        @FXML
+        private Polygon hex11057;
 
-    @FXML
-    private Polygon hex110571;
+        @FXML
+        private Polygon hex110571;
 
-    @FXML
-    private Polygon hex1105711;
+        @FXML
+        private Polygon hex1105711;
 
-    @FXML
-    private Polygon hex1105712;
+        @FXML
+        private Polygon hex1105712;
 
-    @FXML
-    private Polygon hex11057121;
+        @FXML
+        private Polygon hex11057121;
 
-    @FXML
-    private Polygon hex110571210;
+        @FXML
+        private Polygon hex110571210;
 
-    @FXML
-    private Polygon hex11057122;
+        @FXML
+        private Polygon hex11057122;
 
-    @FXML
-    private Polygon hex11057123;
+        @FXML
+        private Polygon hex11057123;
 
-    @FXML
-    private Polygon hex11057124;
+        @FXML
+        private Polygon hex11057124;
 
-    @FXML
-    private Polygon hex110571241;
+        @FXML
+        private Polygon hex110571241;
 
-    @FXML
-    private Polygon hex110571242;
+        @FXML
+        private Polygon hex110571242;
 
-    @FXML
-    private Polygon hex110571243;
+        @FXML
+        private Polygon hex110571243;
 
-    @FXML
-    private Polygon hex110571244;
+        @FXML
+        private Polygon hex110571244;
 
-    @FXML
-    private Polygon hex110571245;
+        @FXML
+        private Polygon hex110571245;
 
-    @FXML
-    private Polygon hex11057125;
+        @FXML
+        private Polygon hex11057125;
 
-    @FXML
-    private Polygon hex11057126;
+        @FXML
+        private Polygon hex11057126;
 
-    @FXML
-    private Polygon hex110571261;
+        @FXML
+        private Polygon hex110571261;
 
-    @FXML
-    private Polygon hex110571262;
+        @FXML
+        private Polygon hex110571262;
 
-    @FXML
-    private Polygon hex110571263;
+        @FXML
+        private Polygon hex110571263;
 
-    @FXML
-    private Polygon hex110571264;
+        @FXML
+        private Polygon hex110571264;
 
-    @FXML
-    private Polygon hex110571265;
+        @FXML
+        private Polygon hex110571265;
 
-    @FXML
-    private Polygon hex110571266;
+        @FXML
+        private Polygon hex110571266;
 
-    @FXML
-    private Polygon hex110571267;
+        @FXML
+        private Polygon hex110571267;
 
-    @FXML
-    private Polygon hex11057127;
+        @FXML
+        private Polygon hex11057127;
 
-    @FXML
-    private Polygon hex11057128;
+        @FXML
+        private Polygon hex11057128;
 
-    @FXML
-    private Polygon hex11057129;
+        @FXML
+        private Polygon hex11057129;
 
-    @FXML
-    private Polygon hex1105713;
+        @FXML
+        private Polygon hex1105713;
 
-    @FXML
-    private Polygon hex1105714;
+        @FXML
+        private Polygon hex1105714;
 
-    @FXML
-    private Polygon hex1105715;
+        @FXML
+        private Polygon hex1105715;
 
-    @FXML
-    private Polygon hex1105716;
+        @FXML
+        private Polygon hex1105716;
 
-    @FXML
-    private Polygon hex11057161;
+        @FXML
+        private Polygon hex11057161;
 
-    @FXML
-    private Polygon hex11057162;
+        @FXML
+        private Polygon hex11057162;
 
-    @FXML
-    private Polygon hex11057163;
+        @FXML
+        private Polygon hex11057163;
 
-    @FXML
-    private Polygon hex11057164;
+        @FXML
+        private Polygon hex11057164;
 
-    @FXML
-    private Polygon hex11057165;
+        @FXML
+        private Polygon hex11057165;
 
-    @FXML
-    private Polygon hex110571651;
+        @FXML
+        private Polygon hex110571651;
 
-    @FXML
-    private Polygon hex110571652;
+        @FXML
+        private Polygon hex110571652;
 
-    @FXML
-    private Polygon hex110571653;
+        @FXML
+        private Polygon hex110571653;
 
-    @FXML
-    private Polygon hex110572;
+        @FXML
+        private Polygon hex110572;
 
-    @FXML
-    private Polygon hex110573;
+        @FXML
+        private Polygon hex110573;
 
-    @FXML
-    private Polygon hex110574;
+        @FXML
+        private Polygon hex110574;
 
-    @FXML
-    private Polygon hex1105741;
+        @FXML
+        private Polygon hex1105741;
 
-    @FXML
-    private Polygon hex1105742;
+        @FXML
+        private Polygon hex1105742;
 
-    @FXML
-    private Polygon hex1105743;
+        @FXML
+        private Polygon hex1105743;
 
-    @FXML
-    private Polygon hex1105744;
+        @FXML
+        private Polygon hex1105744;
 
-    @FXML
-    private Polygon hex11057441;
+        @FXML
+        private Polygon hex11057441;
 
-    @FXML
-    private Polygon hex11057442;
+        @FXML
+        private Polygon hex11057442;
 
-    @FXML
-    private Polygon hex11057443;
+        @FXML
+        private Polygon hex11057443;
 
-    @FXML
-    private Polygon hex11057444;
+        @FXML
+        private Polygon hex11057444;
 
-    @FXML
-    private Polygon hex11058;
+        @FXML
+        private Polygon hex11058;
 
-    @FXML
-    private Polygon hex11059;
+        @FXML
+        private Polygon hex11059;
 
-    @FXML
-    private Polygon hex1106;
+        @FXML
+        private Polygon hex1106;
 
-    @FXML
-    private Polygon hex1107;
+        @FXML
+        private Polygon hex1107;
 
-    @FXML
-    private Polygon hex1108;
+        @FXML
+        private Polygon hex1108;
 
-    @FXML
-    private Polygon hex1109;
+        @FXML
+        private Polygon hex1109;
 
-    @FXML
-    private Polygon hex11091;
+        @FXML
+        private Polygon hex11091;
 
-    @FXML
-    private Polygon hex110911;
+        @FXML
+        private Polygon hex110911;
 
-    @FXML
-    private Polygon hex1109110;
+        @FXML
+        private Polygon hex1109110;
 
-    @FXML
-    private Polygon hex1109111;
+        @FXML
+        private Polygon hex1109111;
 
-    @FXML
-    private Polygon hex1109112;
+        @FXML
+        private Polygon hex1109112;
 
-    @FXML
-    private Polygon hex1109113;
+        @FXML
+        private Polygon hex1109113;
 
-    @FXML
-    private Polygon hex1109114;
+        @FXML
+        private Polygon hex1109114;
 
-    @FXML
-    private Polygon hex110912;
+        @FXML
+        private Polygon hex110912;
 
-    @FXML
-    private Polygon hex110913;
+        @FXML
+        private Polygon hex110913;
 
-    @FXML
-    private Polygon hex110914;
+        @FXML
+        private Polygon hex110914;
 
-    @FXML
-    private Polygon hex110915;
+        @FXML
+        private Polygon hex110915;
 
-    @FXML
-    private Polygon hex110916;
+        @FXML
+        private Polygon hex110916;
 
-    @FXML
-    private Polygon hex110917;
+        @FXML
+        private Polygon hex110917;
 
-    @FXML
-    private Polygon hex110918;
+        @FXML
+        private Polygon hex110918;
 
-    @FXML
-    private Polygon hex110919;
+        @FXML
+        private Polygon hex110919;
 
-    @FXML
-    private Polygon hex12;
+        @FXML
+        private Polygon hex12;
 
-    @FXML
-    private Polygon hex13;
+        @FXML
+        private Polygon hex13;
 
-    @FXML
-    private Polygon hex14;
+        @FXML
+        private Polygon hex14;
 
-    @FXML
-    private Polygon hex15;
+        @FXML
+        private Polygon hex15;
 
-    @FXML
-    private Polygon hex16;
+        @FXML
+        private Polygon hex16;
 
-    @FXML
-    private Polygon hex17;
+        @FXML
+        private Polygon hex17;
 
-    @FXML
-    private Polygon hex18;
+        @FXML
+        private Polygon hex18;
 
-    @FXML
-    private Polygon hex19;
+        @FXML
+        private Polygon hex19;
 
-    @FXML
-    private Polygon hex2;
+        @FXML
+        private Polygon hex2;
 
-    @FXML
-    private Polygon hex3;
+        @FXML
+        private Polygon hex3;
 
-    @FXML
-    private Polygon hex4;
+        @FXML
+        private Polygon hex4;
 
-    @FXML
-    private Polygon hex5;
+        @FXML
+        private Polygon hex5;
 
-    @FXML
-    private Polygon hex6;
+        @FXML
+        private Polygon hex6;
 
-    @FXML
-    private Polygon hex7;
+        @FXML
+        private Polygon hex7;
 
-    @FXML
-    private Polygon hex8;
+        @FXML
+        private Polygon hex8;
 
-    @FXML
-    private Polygon hex9;
+        @FXML
+        private Polygon hex9;
 
-    //checks that the current player has been set to player 1
-    private boolean initializeCheck1=false;
-    //checks that the window scale is set
-    private boolean initializeCheck2=false;
-    //checks that the listeners are added
-    private boolean initializeCheck3=false;
-    //checks that the hexagons have been inserted
-    private boolean initializeCheck4=false;
+        //checks that the current player has been set to player 1
+        private boolean initializeCheck1=false;
+        //checks that the window scale is set
+        private boolean initializeCheck2=false;
+        //checks that the listeners are added
+        private boolean initializeCheck3=false;
+        //checks that the hexagons have been inserted
+        private boolean initializeCheck4=false;
 
-    public boolean getInitializeCheck1() {return initializeCheck1;}
-    public boolean getInitializeCheck2() {return initializeCheck2;}
-    public boolean getInitializeCheck3() {return initializeCheck3;}
-    public boolean getInitializeCheck4() {return initializeCheck4;}
+        public boolean getInitializeCheck1() {return initializeCheck1;}
+        public boolean getInitializeCheck2() {return initializeCheck2;}
+        public boolean getInitializeCheck3() {return initializeCheck3;}
+        public boolean getInitializeCheck4() {return initializeCheck4;}
 
-    @FXML // This method is called by the FXMLLoader when initialization is complete
-    void initialize() {
+        @FXML // This method is called by the FXMLLoader when initialization is complete
+        void initialize() {
 
         fillHexagonsArray();
 
@@ -642,10 +640,10 @@ public class HelloController {
         System.out.println("Board Initialized");
     }
 
-    private boolean checkAssertHexagons=false;
-    public boolean getCheckAssertHexagons() {return checkAssertHexagons;}
+        private boolean checkAssertHexagons=false;
+        public boolean getCheckAssertHexagons() {return checkAssertHexagons;}
 
-    private void assertHexagons() {
+        private void assertHexagons() {
         assert hex1 != null : "fx:id=\"hex1\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert hex10 != null : "fx:id=\"hex10\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert hex11 != null : "fx:id=\"hex11\" was not injected: check your FXML file 'hello-view.fxml'.";
@@ -783,8 +781,8 @@ public class HelloController {
         checkAssertHexagons=true;
     }
 
-    @FXML
-    void getHexID(MouseEvent event) {
+        @FXML
+        void getHexID(MouseEvent event) {
         Polygon hexagon = (Polygon) event.getSource();
         if (boardState.containsKey(hexagon)) showErrorPopup(); //already placed a stone
 
@@ -818,7 +816,7 @@ public class HelloController {
         updateTurnLabel();
     }
 
-    private void showErrorPopup() {
+        private void showErrorPopup() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Invalid Move");
         alert.setHeaderText("Invalid, choose another hexagon!");
@@ -829,7 +827,7 @@ public class HelloController {
         System.out.println("Error Detected");
     }
 
-    private void placeStone(Polygon hexagon, Color color) {
+        private void placeStone(Polygon hexagon, Color color) {
         double centerX = hexagon.getLayoutX();
         double centerY = hexagon.getLayoutY();
 
@@ -845,7 +843,7 @@ public class HelloController {
         System.out.println("Stone placed");
     }
 
-    private void removeStones(Polygon start, Color color) {
+        private void removeStones(Polygon start, Color color) {
         Set<Polygon> toRemove = new HashSet<>();
         searchHexagonToRemove(start, color, toRemove);
         List<Circle> stonesToRemove = new ArrayList<>();
@@ -856,8 +854,7 @@ public class HelloController {
 
             //remove the stone(circle)
             for (var node : hexGroup.getChildren()) {
-                if (node instanceof Circle) {
-                    Circle stone = (Circle) node;
+                if (node instanceof Circle stone) {
                     if (stone.getCenterX() == hex.getLayoutX() && stone.getCenterY() == hex.getLayoutY()) {
                         stonesToRemove.add(stone);
                         break;
@@ -873,8 +870,8 @@ public class HelloController {
     }
 
 
-    //returns list of neighbor hexagons
-    private List<Polygon> getNeighbours(Polygon hexagon) {
+        //returns list of neighbor hexagons
+        private List<Polygon> getNeighbours(Polygon hexagon) {
         List<Polygon> neighbors = new ArrayList<>(); //empty list to store neighbors
         double x = hexagon.getLayoutX();
         double y = hexagon.getLayoutY();
@@ -890,14 +887,14 @@ public class HelloController {
         return neighbors;
     }
 
-    //counts number connected hexagons of same color
-    private int countGroupSize(Polygon start, Color color) {
+        //counts number connected hexagons of same color
+        private int countGroupSize(Polygon start, Color color) {
         Set<Polygon> visited = new HashSet<>(); //keep track of visited hexagons
         return visitNeighbouringHexagons(start, color, visited);
     }
 
-    //explores all hexagons connected to the starting one
-    private int visitNeighbouringHexagons(Polygon hexagon, Color color, Set<Polygon> visited) {
+        //explores all hexagons connected to the starting one
+        private int visitNeighbouringHexagons(Polygon hexagon, Color color, Set<Polygon> visited) {
         //already visited or not the right color, stop and return 0
         if (visited.contains(hexagon) || boardState.get(hexagon) != color)
             return 0;
@@ -911,7 +908,7 @@ public class HelloController {
         return count;
     }
 
-    private void isCapturingMove(Polygon placedHex, Color playerColor) {
+        private void isCapturingMove(Polygon placedHex, Color playerColor) {
         List<Polygon> opponentGroupsToRemove = new ArrayList<>(); //list store opponent groups to remove
         Color opponentColor = (playerColor == RED) ? BLUE : RED; //get opponent's color
 
@@ -936,7 +933,7 @@ public class HelloController {
     }
 
 
-    private void searchHexagonToRemove(Polygon hexagon, Color color, Set<Polygon> toRemove) {
+        private void searchHexagonToRemove(Polygon hexagon, Color color, Set<Polygon> toRemove) {
         if (toRemove.contains(hexagon) || boardState.get(hexagon) != color)
             return;
         toRemove.add(hexagon);
@@ -945,5 +942,4 @@ public class HelloController {
             searchHexagonToRemove(neighbor, color, toRemove);
         }
     }
-
 }
