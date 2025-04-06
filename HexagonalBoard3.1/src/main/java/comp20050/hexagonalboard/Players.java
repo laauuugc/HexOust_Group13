@@ -1,6 +1,7 @@
 package comp20050.hexagonalboard;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class Players extends JDialog {
@@ -36,10 +37,8 @@ public class Players extends JDialog {
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-            }
-
-    private void centerFrame(Players players) {
     }
+
 
     public void onOK() {
         player1Name= getname1();
