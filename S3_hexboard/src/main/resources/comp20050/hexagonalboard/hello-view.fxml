@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane fx:id="stackPane" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #d8fcbc;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp20050.hexagonalboard.HelloController">
+<StackPane fx:id="stackPane" style="-fx-background-color: #d8fcbc;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp20050.hexagonalboard.HelloController">
    <children>
 
       <VBox spacing="10.0" StackPane.alignment="TOP_LEFT" xmlns:fx="http://javafx.com/fxml">
@@ -30,7 +30,7 @@
 
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1177.0" prefWidth="1011.0">
          <children>
-            <Group fx:id="hexGroup" autoSizeChildren="false" layoutX="-32.0" layoutY="21.0">
+            <Group fx:id="hexGroup" autoSizeChildren="false" layoutX="-27.0" layoutY="26.0">
                <children>
                   <Polygon fx:id="hex1" fill="#d8b0ee" layoutX="538.0" layoutY="118.0" onMouseClicked="#getHexID" rotate="90.0" stroke="#6d4fd8" strokeType="INSIDE" strokeWidth="4.0">
                      <points>
