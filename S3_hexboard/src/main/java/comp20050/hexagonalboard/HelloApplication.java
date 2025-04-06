@@ -14,9 +14,9 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        //run Swing dialogs on the Swing thread
+        // Run Swing dialogs on the Swing thread
         SwingUtilities.invokeLater(() -> {
-            //launch Rules dialog
+            // Launch Rules dialog
             Rules rulesDialog = new Rules();
             rulesDialog.setResizable(false);
             centerRulesWindow(rulesDialog);
