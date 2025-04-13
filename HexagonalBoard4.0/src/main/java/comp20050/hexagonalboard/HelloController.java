@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -29,8 +28,7 @@ public class HelloController {
 
     private final Map<Polygon, Color> boardState = new HashMap<>();
 
-    @FXML
-    protected ImageView rulesHelpButton;
+    private boolean winnerDeclared = false;
 
     //Set Player Names
     public void setPlayerNames(String player1, String player2) {
@@ -613,24 +611,11 @@ public class HelloController {
     public boolean getInitializeCheck3() {return initializeCheck3;}
     public boolean getInitializeCheck4() {return initializeCheck4;}
 
-    @FXML
-    private void handleRulesHelpButtonClick(MouseEvent event){
-        SwingUtilities.invokeLater(() -> {
-            Rules dialog = new Rules();
-            dialog.pack();
-            dialog.setVisible(true);
-        });
-    }
-
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        //Image image = new Image(getClass().getResource("/comp20050/hexagonalboard/logo.png"));
-        //rulesHelpButton.setImage(image);
-
         fillHexagonsArray();
         currentPlayer.setText(namePl1 + "'s turn");
         initializeCheck1=true;
-        //currentPlayer.setStyle("-fx-text-fill: red;"); // don't really need this line
 
         // Bind scale based on the smaller of the width or height to keep aspect ratio
         ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
@@ -881,6 +866,9 @@ public class HelloController {
         //remove all captured stones from board
         hexGroup.getChildren().removeAll(stonesToRemove);
 
+        // Check for winner after removing stones
+        checkForWinner();
+
         //=======================================
         System.out.println("Stones removed ");
     }
@@ -954,6 +942,31 @@ public class HelloController {
 
         for (Polygon neighbor : getNeighbours(hexagon)) {
             searchHexagonToRemove(neighbor, color, toRemove);
+        }
+    }
+
+    private void checkForWinner() {
+        if (winnerDeclared) return;
+
+        boolean hasRedStones = false;
+        boolean hasBlueStones = false;
+
+        // Check if stones of each color remain in board
+        for (Color color : boardState.values()) {
+            if (color == RED) {
+                hasRedStones = true;
+            } else if (color == BLUE) {
+                hasBlueStones = true;
+            }
+        }
+
+        // If one color has no stones left the other player wins
+        if (!hasRedStones) {
+            winnerDeclared = true;
+            displayWinnerInterface(namePl2, BLUE);
+        } else if (!hasBlueStones) {
+            winnerDeclared = true;
+            displayWinnerInterface(namePl1, RED);
         }
     }
 

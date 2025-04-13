@@ -4,13 +4,12 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <StackPane fx:id="stackPane" style="-fx-background-color: #d8fcbc;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp20050.hexagonalboard.HelloController">
-   <VBox spacing="10.0" StackPane.alignment="TOP_LEFT" xmlns:fx="http://javafx.com/fxml">
+   <VBox prefHeight="100" prefWidth="320" spacing="10.0" StackPane.alignment="TOP_LEFT" xmlns:fx="http://javafx.com/fxml">
       <padding>
          <Insets left="10" top="10" />
       </padding>
@@ -26,14 +25,6 @@
    </VBox>
 
    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1177.0" prefWidth="1011.0">
-      <VBox layoutX="942.0" layoutY="14.0" prefHeight="58.0" prefWidth="58.0">
-         <children>
-            <ImageView fx:id="rulesHelpButton" fitHeight="58.0" fitWidth="58.0" onMouseDragged="#getHexID" pickOnBounds="true" preserveRatio="true" onMouseClicked="#handleRulesHelpButtonClick">
-               <image>
-                  <Image url="@logo.png" />
-               </image></ImageView>
-         </children>
-      </VBox>
       <Group fx:id="hexGroup" autoSizeChildren="false" layoutX="-32.0" layoutY="21.0">
          <Polygon fx:id="hex1" fill="#d8b0ee" layoutX="538.0" layoutY="118.0" onMouseClicked="#getHexID" rotate="90.0" stroke="#6d4fd8" strokeType="INSIDE" strokeWidth="4.0">
             <points>
