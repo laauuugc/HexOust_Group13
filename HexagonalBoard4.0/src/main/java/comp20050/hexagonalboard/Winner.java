@@ -52,7 +52,7 @@ public class Winner extends JDialog {
         dispose();
     }
 
-    private void displayWinner (String PlayerName,  Color color){
+    protected void displayWinner (String PlayerName,  Color color){
         ImageIcon icon;
         int width = 100;
         int height = 100;
@@ -77,7 +77,7 @@ public class Winner extends JDialog {
         winnerMessage.setText(winnerSentence);
     }
 
-    private void centerWindow(Dialog dialog) {
+    protected void centerWindow(Dialog dialog) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension rulesDialogSize = dialog.getSize();
         int xRules = (screenSize.width - rulesDialogSize.width)/2;

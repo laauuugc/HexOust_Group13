@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -27,6 +28,9 @@ public class HelloController {
     public static final Color BLUE = Color.web("#86b3d3");
 
     private final Map<Polygon, Color> boardState = new HashMap<>();
+
+    @FXML
+    protected ImageView rulesHelpButton;
 
     //Set Player Names
     public void setPlayerNames(String player1, String player2) {
@@ -609,8 +613,20 @@ public class HelloController {
     public boolean getInitializeCheck3() {return initializeCheck3;}
     public boolean getInitializeCheck4() {return initializeCheck4;}
 
+    @FXML
+    private void handleRulesHelpButtonClick(MouseEvent event){
+        SwingUtilities.invokeLater(() -> {
+            Rules dialog = new Rules();
+            dialog.pack();
+            dialog.setVisible(true);
+        });
+    }
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+        //Image image = new Image(getClass().getResource("/comp20050/hexagonalboard/logo.png"));
+        //rulesHelpButton.setImage(image);
+
         fillHexagonsArray();
         currentPlayer.setText(namePl1 + "'s turn");
         initializeCheck1=true;
@@ -803,7 +819,6 @@ public class HelloController {
             return;
         }
 
-        //hexagon.setFill(playerColor);
         placeStone(hexagon, playerColor);
 
         if (connectsToOwn && connectsToOpponent)
@@ -869,7 +884,6 @@ public class HelloController {
         //=======================================
         System.out.println("Stones removed ");
     }
-
 
     //returns list of neighbor hexagons
     private List<Polygon> getNeighbours(Polygon hexagon) {
@@ -943,8 +957,13 @@ public class HelloController {
         }
     }
 
-
-    void displayHelpShowRules (){
-
+    private void displayWinnerInterface(String winnerName, Color playerColor) {
+        SwingUtilities.invokeLater(() -> {
+            Winner dialog = new Winner();
+            dialog.pack();
+            dialog.centerWindow(dialog);
+            dialog.displayWinner(winnerName,playerColor);
+            dialog.setVisible(true);
+        });
     }
 }
