@@ -36,7 +36,7 @@
             </constraints>
             <properties>
               <enabled value="true"/>
-              <font name="Showcard Gothic" size="16" style="1"/>
+              <font name="Trebuchet MS" size="18" style="1"/>
               <foreground color="-9615144"/>
               <text value="Game rules"/>
             </properties>
@@ -44,14 +44,14 @@
           <component id="7b619" class="javax.swing.JTextPane" binding="rules">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="800" height="700"/>
+                <preferred-size width="790" height="610"/>
               </grid>
             </constraints>
             <properties>
               <background color="-2556740"/>
               <editable value="false"/>
               <enabled value="true"/>
-              <font name="Segoe Print" size="11" style="1"/>
+              <font name="Georgia" size="14" style="0"/>
               <foreground color="-16711423"/>
               <inheritsPopupMenu value="false"/>
               <selectedTextColor color="-16711423"/>

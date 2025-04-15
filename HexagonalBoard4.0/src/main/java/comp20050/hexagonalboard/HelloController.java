@@ -828,6 +828,7 @@ public class HelloController {
         System.out.println("Error Detected");
     }
 
+    // STONES ON BOARD
     private void placeStone(Polygon hexagon, Color color) {
         double centerX = hexagon.getLayoutX();
         double centerY = hexagon.getLayoutY();
@@ -873,6 +874,8 @@ public class HelloController {
         System.out.println("Stones removed ");
     }
 
+
+    // CAPTURING MOVE
     //returns list of neighbor hexagons
     private List<Polygon> getNeighbours(Polygon hexagon) {
         List<Polygon> neighbors = new ArrayList<>(); //empty list to store neighbors
@@ -945,6 +948,8 @@ public class HelloController {
         }
     }
 
+
+    // WINNER
     private void checkForWinner() {
         if (winnerDeclared) return;
 
@@ -975,8 +980,23 @@ public class HelloController {
             Winner dialog = new Winner();
             dialog.pack();
             dialog.centerWindow(dialog);
-            dialog.displayWinner(winnerName,playerColor);
+            dialog.displayWinner(winnerName, playerColor);
+
+            // When dialog closed whole game exits
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    System.exit(0); // Fully terminate game
+                }
+
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0); // If user clicks X
+                }
+            });
+
             dialog.setVisible(true);
         });
     }
+
 }

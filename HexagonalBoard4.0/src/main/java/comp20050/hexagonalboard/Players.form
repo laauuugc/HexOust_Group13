@@ -73,7 +73,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Segoe Print" style="1"/>
+              <font name="Georgia" size="14" style="1"/>
               <foreground color="-16777216"/>
               <text value="Name player 1 :"/>
             </properties>
@@ -83,7 +83,7 @@
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Segoe Print" style="1"/>
+              <font name="Georgia" size="14" style="1"/>
               <foreground color="-16777216"/>
               <text value="Name player 2 :"/>
             </properties>
@@ -129,7 +129,7 @@
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Segoe Print" style="1"/>
+              <font name="Georgia" size="14" style="1"/>
               <foreground color="-756611"/>
               <horizontalAlignment value="10"/>
               <horizontalTextPosition value="11"/>
@@ -141,7 +141,7 @@
               <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Segoe Print" style="1"/>
+              <font name="Georgia" size="14" style="1"/>
               <foreground color="-7883821"/>
               <text value="BLUE PLAYER 🔵"/>
             </properties>
@@ -154,7 +154,7 @@
         </constraints>
         <properties>
           <background color="-2556740"/>
-          <font name="Showcard Gothic" size="16" style="1"/>
+          <font name="Trebuchet MS" size="18" style="1"/>
           <foreground color="-9615144"/>
           <text value="PLAYERS INFO"/>
         </properties>

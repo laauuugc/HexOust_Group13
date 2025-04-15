@@ -15,7 +15,7 @@
       </padding>
       <Label fx:id="currentPlayer" prefHeight="30.0" prefWidth="422.0" text="Player Turn" textFill="#6d4fd8">
          <font>
-            <Font name="Segoe Print Bold" size="16.0" />
+            <Font name="Georgia Bold" size="20.0" />
          </font>
          <graphic>
             <Circle fx:id="currentCircle" fill="#f4727d" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
