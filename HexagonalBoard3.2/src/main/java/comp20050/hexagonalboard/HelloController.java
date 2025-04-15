@@ -14,6 +14,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
+import javax.swing.*;
+
 public class HelloController {
     private String namePl1 = "Player 1"; // Default name if not set
     private String namePl2 = "Player 2";
@@ -862,10 +864,39 @@ public class HelloController {
         //remove all captured stones from board
         hexGroup.getChildren().removeAll(stonesToRemove);
 
+        // Check for winner after removing stones
+        checkForWinner();
+
         //=======================================
         System.out.println("Stones removed ");
     }
 
+    private boolean winnerDeclared = false;
+
+    private void checkForWinner() {
+        if (winnerDeclared) return;
+
+        boolean hasRedStones = false;
+        boolean hasBlueStones = false;
+
+        // Check if stones of each color remain in board
+        for (Color color : boardState.values()) {
+            if (color == RED) {
+                hasRedStones = true;
+            } else if (color == BLUE) {
+                hasBlueStones = true;
+            }
+        }
+
+        // If one color has no stones left the other player wins
+        if (!hasRedStones) {
+            winnerDeclared = true;
+            displayWinnerInterface(namePl2, BLUE);
+        } else if (!hasBlueStones) {
+            winnerDeclared = true;
+            displayWinnerInterface(namePl1, RED);
+        }
+    }
 
     //returns list of neighbor hexagons
     private List<Polygon> getNeighbours(Polygon hexagon) {
@@ -938,5 +969,29 @@ public class HelloController {
         for (Polygon neighbor : getNeighbours(hexagon)) {
             searchHexagonToRemove(neighbor, color, toRemove);
         }
+    }
+
+    private void displayWinnerInterface(String winnerName, Color playerColor) {
+        SwingUtilities.invokeLater(() -> {
+            Winner dialog = new Winner();
+            dialog.pack();
+            dialog.centerWindow(dialog);
+            dialog.displayWinner(winnerName, playerColor);
+
+            // When dialog closed whole game exits
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    System.exit(0); // Fully terminate game
+                }
+
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0); // If user clicks X
+                }
+            });
+
+            dialog.setVisible(true);
+        });
     }
 }

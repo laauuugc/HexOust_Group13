@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayersTest {
-    //because they're private in the Players.java
+    // Because they're private in the Players.java
     private Players players;
     private JTextField name1Field;
     private JTextField name2Field;
@@ -21,7 +21,7 @@ class PlayersTest {
             players.setModal(false); // Don't block during tests
         });
 
-        // reflection to access private name1/name2
+        // Reflection to access private name1/name2
         name1Field = getPrivateTextField(players, "name1");
         name2Field = getPrivateTextField(players, "name2");
     }
@@ -71,7 +71,7 @@ class PlayersTest {
         });
     }
 
-    // get private JTextField using reflection
+    // Get private JTextField using reflection
     private JTextField getPrivateTextField(Object instance, String fieldName) throws Exception {
         Field field = instance.getClass().getDeclaredField(fieldName);
         field.setAccessible(true);
