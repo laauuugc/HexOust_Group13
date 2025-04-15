@@ -69,10 +69,6 @@ public class HelloApplication extends Application {
         });
     }
 
-    /**
-     * Displays a logo screen in the center of the screen,
-     * then runs the provided callback after 4 seconds.
-     */
     private void showLogo(Runnable afterSplash) {
         JDialog splash = new JDialog();
         splash.setUndecorated(true); // no borders
@@ -106,14 +102,15 @@ public class HelloApplication extends Application {
         }).start();
     }
 
-    private void centerWindow(Dialog dialog) {
+    // Center the Rules and Players windows
+    private void centerWindow(JDialog dialog) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension rulesDialogSize = dialog.getSize();
-        int xRules = (screenSize.width - rulesDialogSize.width)/2;
-        int yRules = (screenSize.height - rulesDialogSize.height)/2;
-        dialog.setLocation(xRules, yRules);
-    }
+        Dimension dialogSize = dialog.getSize();
+        int x = (screenSize.width - dialogSize.width) / 2;
+        int y = (screenSize.height - dialogSize.height) / 2;
+        dialog.setLocation(x, y);
 
+    }
 
     public static void main(String[] args) {
         launch();

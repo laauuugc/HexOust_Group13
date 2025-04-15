@@ -1,9 +1,7 @@
 package comp20050.hexagonalboard;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.*;
-import java.util.List;
 
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -27,8 +25,6 @@ public class HelloController {
     public static final Color BLUE = Color.web("#86b3d3");
 
     private final Map<Polygon, Color> boardState = new HashMap<>();
-
-    private boolean winnerDeclared = false;
 
     //Set Player Names
     public void setPlayerNames(String player1, String player2) {
@@ -616,6 +612,7 @@ public class HelloController {
         fillHexagonsArray();
         currentPlayer.setText(namePl1 + "'s turn");
         initializeCheck1=true;
+        //currentPlayer.setStyle("-fx-text-fill: red;"); // don't really need this line
 
         // Bind scale based on the smaller of the width or height to keep aspect ratio
         ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
@@ -793,25 +790,69 @@ public class HelloController {
         Color opponentColor = playerTurn ? RED : BLUE;
 
         List<Polygon> adjacent = getNeighbours(hexagon);
-        //check own stones
-        boolean connectsToOwn = adjacent.stream().anyMatch(h -> boardState.get(h) == playerColor);
-        //check opponent's stones
-        boolean connectsToOpponent = adjacent.stream().anyMatch(h -> boardState.get(h) == opponentColor);
 
-        if (connectsToOwn && !connectsToOpponent) {
-            //only next to player's own stones not valid
+        // Count how many neighbors are same color and how many are opponent
+        long ownCount = adjacent.stream().filter(h -> boardState.get(h) == playerColor).count();
+        long opponentCount = adjacent.stream().filter(h -> boardState.get(h) == opponentColor).count();
+
+        // Invalid if placed next to only own stones
+        if (ownCount > 0 && opponentCount == 0) {
             showErrorPopup();
             return;
         }
 
-        placeStone(hexagon, playerColor);
+        // Temporarily place the stone for group evaluation
+        boardState.put(hexagon, playerColor);
 
-        if (connectsToOwn && connectsToOpponent)
-            isCapturingMove(hexagon, playerColor);
-        else {
-            playerTurn = !playerTurn; // End turn on non-capturing move
-            //=======================================
-            System.out.println("Non-Capturing Move");
+        // Count new group size
+        int newGroupSize = countGroupSize(hexagon, playerColor);
+
+        // Find all opponent groups
+        Set<Polygon> visited = new HashSet<>();
+        List<Set<Polygon>> opponentGroups = new ArrayList<>();
+        for (Polygon hex : boardState.keySet()) {
+            if (boardState.get(hex) == opponentColor && !visited.contains(hex)) {
+                Set<Polygon> group = new HashSet<>();
+                collectGroup(hex, opponentColor, group);
+                visited.addAll(group);
+                opponentGroups.add(group);
+            }
+        }
+
+        boolean canCapture = true;
+        for (Set<Polygon> group : opponentGroups) {
+            if (group.size() >= newGroupSize) {
+                canCapture = false;
+                break;
+            }
+        }
+
+        if (ownCount > 0 && opponentCount > 0) {
+            if (!canCapture) {
+                boardState.remove(hexagon); // Undo test placement
+                showErrorPopup();
+                return;
+            }
+            // Place valid capturing stone
+            placeStone(hexagon, playerColor);
+
+            for (Polygon neighbor : adjacent) {
+                if (boardState.get(neighbor) == opponentColor) {
+                    removeStones(neighbor, opponentColor);
+                }
+            }
+        } else if (ownCount <= 1 && opponentCount > 0) {
+            // Valid non-capturing move: Only 0 or 1 same-color + at least 1 opponent
+            placeStone(hexagon, playerColor);
+            playerTurn = !playerTurn;
+        } else if (ownCount == 0 && opponentCount == 0) {
+            // Also valid non-capturing move (isolated placement)
+            placeStone(hexagon, playerColor);
+            playerTurn = !playerTurn;
+        } else {
+            boardState.remove(hexagon); // Undo test placement
+            showErrorPopup();
+            return;
         }
 
         updateTurnLabel();
@@ -828,7 +869,6 @@ public class HelloController {
         System.out.println("Error Detected");
     }
 
-    // STONES ON BOARD
     private void placeStone(Polygon hexagon, Color color) {
         double centerX = hexagon.getLayoutX();
         double centerY = hexagon.getLayoutY();
@@ -874,8 +914,33 @@ public class HelloController {
         System.out.println("Stones removed ");
     }
 
+    private boolean winnerDeclared = false;
 
-    // CAPTURING MOVE
+    private void checkForWinner() {
+        if (winnerDeclared) return;
+
+        boolean hasRedStones = false;
+        boolean hasBlueStones = false;
+
+        // Check if stones of each color remain in board
+        for (Color color : boardState.values()) {
+            if (color == RED) {
+                hasRedStones = true;
+            } else if (color == BLUE) {
+                hasBlueStones = true;
+            }
+        }
+
+        // If one color has no stones left the other player wins
+        if (!hasRedStones) {
+            winnerDeclared = true;
+            displayWinnerInterface(namePl2, BLUE);
+        } else if (!hasBlueStones) {
+            winnerDeclared = true;
+            displayWinnerInterface(namePl1, RED);
+        }
+    }
+
     //returns list of neighbor hexagons
     private List<Polygon> getNeighbours(Polygon hexagon) {
         List<Polygon> neighbors = new ArrayList<>(); //empty list to store neighbors
@@ -915,28 +980,53 @@ public class HelloController {
     }
 
     private void isCapturingMove(Polygon placedHex, Color playerColor) {
-        List<Polygon> opponentGroupsToRemove = new ArrayList<>(); //list store opponent groups to remove
-        Color opponentColor = (playerColor == RED) ? BLUE : RED; //get opponent's color
+        Color opponentColor = (playerColor == RED) ? BLUE : RED;
 
-        int newGroupSize = countGroupSize(placedHex, playerColor); //count size new group after placing stone
+        // Calculate size of new group the player just formed
+        int newGroupSize = countGroupSize(placedHex, playerColor);
 
-        //check each neighbor
-        for (Polygon neighbor : getNeighbours(placedHex)) {
-            if (boardState.get(neighbor) == opponentColor) {
-                int opponentGroupSize = countGroupSize(neighbor, opponentColor);
-                if (opponentGroupSize < newGroupSize) { //if capturing move
-                    //=======================================
-                    System.out.println("Is Capturing Move");
+        // Find all opponent groups on board
+        Set<Polygon> visited = new HashSet<>();
+        List<Set<Polygon>> opponentGroups = new ArrayList<>();
 
-                    opponentGroupsToRemove.add(neighbor); //remove opponent's stones
-                }
+        for (Polygon hex : boardState.keySet()) {
+            if (boardState.get(hex) == opponentColor && !visited.contains(hex)) {
+                Set<Polygon> group = new HashSet<>();
+                collectGroup(hex, opponentColor, group);
+                visited.addAll(group);
+                opponentGroups.add(group);
             }
         }
 
-        for (Polygon opponentStone : opponentGroupsToRemove) {
-            removeStones(opponentStone, opponentColor);
+        // Check if new group bigger than ALL opponent groups
+        for (Set<Polygon> group : opponentGroups) {
+            if (group.size() >= newGroupSize) {
+                System.out.println("New group NOT bigger than all opponent groups. No capture.");
+                return; // Can't capture if any opponent group is bigger or equal
+            }
+        }
+
+        // If check passed capture all opponent groups connected to the new stone
+        for (Polygon neighbor : getNeighbours(placedHex)) {
+            if (boardState.get(neighbor) == opponentColor) {
+                removeStones(neighbor, opponentColor);
+            }
+        }
+
+        System.out.println("Captured opponent groups!");
+    }
+
+
+    private void collectGroup(Polygon hexagon, Color color, Set<Polygon> group) {
+        if (group.contains(hexagon) || boardState.get(hexagon) != color)
+            return;
+
+        group.add(hexagon);
+        for (Polygon neighbor : getNeighbours(hexagon)) {
+            collectGroup(neighbor, color, group);
         }
     }
+
 
     private void searchHexagonToRemove(Polygon hexagon, Color color, Set<Polygon> toRemove) {
         if (toRemove.contains(hexagon) || boardState.get(hexagon) != color)
@@ -945,33 +1035,6 @@ public class HelloController {
 
         for (Polygon neighbor : getNeighbours(hexagon)) {
             searchHexagonToRemove(neighbor, color, toRemove);
-        }
-    }
-
-
-    // WINNER
-    private void checkForWinner() {
-        if (winnerDeclared) return;
-
-        boolean hasRedStones = false;
-        boolean hasBlueStones = false;
-
-        // Check if stones of each color remain in board
-        for (Color color : boardState.values()) {
-            if (color == RED) {
-                hasRedStones = true;
-            } else if (color == BLUE) {
-                hasBlueStones = true;
-            }
-        }
-
-        // If one color has no stones left the other player wins
-        if (!hasRedStones) {
-            winnerDeclared = true;
-            displayWinnerInterface(namePl2, BLUE);
-        } else if (!hasBlueStones) {
-            winnerDeclared = true;
-            displayWinnerInterface(namePl1, RED);
         }
     }
 
@@ -998,5 +1061,4 @@ public class HelloController {
             dialog.setVisible(true);
         });
     }
-
 }

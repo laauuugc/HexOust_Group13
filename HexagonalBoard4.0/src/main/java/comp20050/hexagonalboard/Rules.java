@@ -13,11 +13,12 @@ public class Rules extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        buttonOK.setName("OK");
 
         buttonOK.addActionListener(e -> onOK());
 
 
-        // call onCancel() when cross is clicked
+        // Call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -25,7 +26,7 @@ public class Rules extends JDialog {
             }
         });
 
-        // call onCancel() on ESCAPE
+        // Call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
 
@@ -34,12 +35,12 @@ public class Rules extends JDialog {
 
 
     private void onOK() {
-        // add your code here
+        // Add your code here
         dispose();
     }
 
     private void onCancel() {
-        // add your code here if necessary
+        // Add your code here if necessary
         dispose();
     }
 
