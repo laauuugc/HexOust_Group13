@@ -5,7 +5,6 @@ import javafx.scene.paint.Color;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Objects;
 
 public class Winner extends JDialog {
     private JPanel contentPane;
@@ -76,6 +75,10 @@ public class Winner extends JDialog {
         String winnerSentence = PlayerName + " WINS !!!";
         winnerMessage.setText(winnerSentence);
     }
+
+    public String getWinnerMessage (){return winnerMessage.getText();}
+
+    public String setWinnerMessage (String playerName){ return playerName+" WINS !!!";}
 
     protected void centerWindow(Dialog dialog) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

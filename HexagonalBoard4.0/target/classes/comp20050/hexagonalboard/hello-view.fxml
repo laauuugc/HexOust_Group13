@@ -9,13 +9,13 @@
 <?import javafx.scene.text.*?>
 
 <StackPane fx:id="stackPane" style="-fx-background-color: #d8fcbc;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp20050.hexagonalboard.HelloController">
-   <VBox spacing="10.0" StackPane.alignment="TOP_LEFT" xmlns:fx="http://javafx.com/fxml">
+   <VBox prefHeight="100" prefWidth="320" spacing="10.0" StackPane.alignment="TOP_LEFT" xmlns:fx="http://javafx.com/fxml">
       <padding>
          <Insets left="10" top="10" />
       </padding>
       <Label fx:id="currentPlayer" prefHeight="30.0" prefWidth="422.0" text="Player Turn" textFill="#6d4fd8">
          <font>
-            <Font name="Segoe Print Bold" size="16.0" />
+            <Font name="Georgia Bold" size="20.0" />
          </font>
          <graphic>
             <Circle fx:id="currentCircle" fill="#f4727d" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
@@ -25,7 +25,7 @@
    </VBox>
 
    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1177.0" prefWidth="1011.0">
-      <Group fx:id="hexGroup" autoSizeChildren="false" layoutX="-27.0" layoutY="26.0">
+      <Group fx:id="hexGroup" autoSizeChildren="false" layoutX="-32.0" layoutY="21.0">
          <Polygon fx:id="hex1" fill="#d8b0ee" layoutX="538.0" layoutY="118.0" onMouseClicked="#getHexID" rotate="90.0" stroke="#6d4fd8" strokeType="INSIDE" strokeWidth="4.0">
             <points>
                <Double fx:value="0.0" />

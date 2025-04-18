@@ -1,35 +1,42 @@
 package comp20050.hexagonalboard;
 
-import org.junit.jupiter.api.AfterEach;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.lang.reflect.InvocationTargetException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RulesTest {
-
-    private Rules dialog;
+class WinnerTest {
+    public static final javafx.scene.paint.Color RED = javafx.scene.paint.Color.web("#f4727d");
+    public static final javafx.scene.paint.Color BLUE = Color.web("#86b3d3");
+    private Winner dialog;
 
     @BeforeEach
     void setUp() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
-            dialog = new Rules();
+            dialog = new Winner();
             dialog.pack();
             dialog.setVisible(true);
             dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
         });
     }
 
-    @AfterEach
-    void tearDown() throws Exception {
-        if (dialog != null) {
-            SwingUtilities.invokeAndWait(() -> dialog.dispose());
-        }
+
+    @Test
+    void testEscapeKeyClosesDialog() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            KeyEvent escEvent = new KeyEvent(dialog, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_ESCAPE, (char) KeyEvent.VK_ESCAPE);
+            Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(escEvent);
+        });
+
+        // Allow time for the dialog to process the event
+        Thread.sleep(200);
+        assertFalse(dialog.isVisible(), "Dialog should be closed after pressing ESC");
     }
 
     @Test
@@ -45,24 +52,13 @@ class RulesTest {
     }
 
     @Test
-    void testEscapeKeyClosesDialog() throws Exception {
-        SwingUtilities.invokeAndWait(() -> {
-            KeyEvent escEvent = new KeyEvent(dialog, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_ESCAPE, (char) KeyEvent.VK_ESCAPE);
-            Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(escEvent);
-        });
-
-        // Allow time for the dialog to process the event
-        Thread.sleep(200);
-        assertFalse(dialog.isVisible(), "Dialog should be closed after pressing ESC");
-    }
-
-    @Test
     void testWindowClose() throws Exception {
         SwingUtilities.invokeAndWait(() -> dialog.dispatchEvent(new java.awt.event.WindowEvent(dialog, java.awt.event.WindowEvent.WINDOW_CLOSING)));
 
         Thread.sleep(100);
         assertFalse(dialog.isVisible(), "Dialog should be closed after window close event");
     }
+
 
     // Helper to find JButton with specific text
     private JButton findButton(Container container, String text) {
