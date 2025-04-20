@@ -29,16 +29,4 @@ class HelloControllerTest {
         assertEquals(127, tester.getHexagons().length);
     }
 
-    //Checks the boolean checks that are set true after certain parts of initialize code is ran properly
-    /*@Test
-    void testInitialize() {
-        HelloController tester = new HelloController();
-        tester.initialize();
-
-        assertEquals(true, tester.getInitializeCheck1());
-        assertEquals(true, tester.getInitializeCheck2());
-        assertEquals(true, tester.getInitializeCheck3());
-        assertEquals(true, tester.getInitializeCheck4());
-
-    }*/
 }

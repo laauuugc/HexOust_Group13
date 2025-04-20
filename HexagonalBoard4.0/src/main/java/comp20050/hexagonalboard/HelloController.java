@@ -593,26 +593,10 @@ public class HelloController {
     @FXML
     private Polygon hex9;
 
-    //checks that the current player has been set to player 1
-    private boolean initializeCheck1=false;
-    //checks that the window scale is set
-    private boolean initializeCheck2=false;
-    //checks that the listeners are added
-    private boolean initializeCheck3=false;
-    //checks that the hexagons have been inserted
-    private boolean initializeCheck4=false;
-
-    public boolean getInitializeCheck1() {return initializeCheck1;}
-    public boolean getInitializeCheck2() {return initializeCheck2;}
-    public boolean getInitializeCheck3() {return initializeCheck3;}
-    public boolean getInitializeCheck4() {return initializeCheck4;}
-
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         fillHexagonsArray();
         currentPlayer.setText(namePl1 + "'s turn");
-        initializeCheck1=true;
-        //currentPlayer.setStyle("-fx-text-fill: red;"); // don't really need this line
 
         // Bind scale based on the smaller of the width or height to keep aspect ratio
         ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
@@ -625,22 +609,16 @@ public class HelloController {
             // Apply the same scale to both X and Y to maintain aspect ratio
             hexGroup.setScaleX(scale);
             hexGroup.setScaleY(scale);
-            initializeCheck2=true;
         };
         // Add listeners to both width and height
         stackPane.widthProperty().addListener(sizeListener);
         stackPane.heightProperty().addListener(sizeListener);
-        initializeCheck3=true;
 
         assertHexagons();
-        initializeCheck4=true;
 
         //=======================================
         System.out.println("Board Initialized");
     }
-
-    private boolean checkAssertHexagons=false;
-    public boolean getCheckAssertHexagons() {return checkAssertHexagons;}
 
     private void assertHexagons() {
         assert hex1 != null : "fx:id=\"hex1\" was not injected: check your FXML file 'hello-view.fxml'.";
@@ -777,7 +755,6 @@ public class HelloController {
         assert hex110918 != null : "fx:id=\"hex8\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert hex110919 != null : "fx:id=\"hex9\" was not injected: check your FXML file 'hello-view.fxml'.";
 
-        checkAssertHexagons=true;
     }
 
     @FXML
