@@ -1,3 +1,25 @@
+/**
+ * Main controller class for HexOust game's hexagonal game board.
+ * This class manages the game's UI, player turns, game state, and core game mechanics.
+ * It handles the hexagonal board representation, player moves, stone placement validation,
+ * group capturing logic, and win condition checking. The controller interfaces with JavaFX
+ * components defined in the FXML view to create an interactive game experience.
+ * Key features include:
+ * - Management of player turns with color assignment (red for Player 1, blue for Player 2)
+ * - Validation of stone placement according to game rules
+ * - Detection and handling of stone capture mechanics
+ * - Tracking and processing of connected stone groups
+ * - Win condition detection when a player has no stones remaining
+ * - Dynamic UI scaling to maintain proper display proportions
+ * The game board consists of 127 hexagonal cells arranged in a specific pattern, with each
+ * hexagon being clickable to place stones. The controller enforces game rules that prevent
+ * invalid moves and manages the capturing mechanics where larger groups can capture smaller
+ * opponent groups.
+ *
+ * @author Cian Latchford, Federica & Laura González Calleja
+ * @version Final Product
+ * @since May 2025
+ */
 package comp20050.hexagonalboard;
 
 import java.net.URL;

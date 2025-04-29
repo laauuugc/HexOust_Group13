@@ -1,3 +1,19 @@
+/**
+ * Dialog window that displays the winner of HexOust game.
+ * This class creates a modal dialog that shows the winning player's name along with
+ * a colored smiley icon that matches the player's color (red or blue). The winner's
+ * name is displayed in the corresponding color to provide visual cohesiveness.
+ * The dialog includes:
+ * - A label displaying the winner's name in the appropriate color
+ * - A smiley icon matching the winner's color (red or blue)
+ * - An OK button to dismiss the dialog
+ * - Standard dialog behaviors (window close button handling)
+ * The dialog appearance is fixed size and non-resizable for consistent presentation.
+ *
+ * @author Cian Latchford, Federica Fucetola & Laura Gonzalez Calleja
+ * @version Final Product
+ * @since May 2025
+ */
 package comp20050.hexagonalboard;
 
 import javafx.scene.paint.Color;

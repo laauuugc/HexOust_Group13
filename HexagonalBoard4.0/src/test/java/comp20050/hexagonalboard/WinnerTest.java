@@ -1,3 +1,20 @@
+/**
+ * This class implements systematic unit tests for the Winner dialog, which displays winner of the
+ * HexOust hexagonal board game. The tests follow the FIRST principles:
+ *   Fast: Tests execute rapidly with minimal wait times
+ *   Independent: Each test operates with a fresh dialog instance via BeforeEach setup
+ *   Repeatable: Using SwingUtilities.invokeAndWait ensures consistent thread management
+ *   Self-validating: JUnit assertions automatically verify dialog state after actions
+ *   Timely: Tests validate core dialog functionality and user interaction patterns
+ * The test strategy includes:
+ *   Properly initializing and disposing of Swing components with BeforeEac hooks
+ *   Testing UI interaction through button clicks
+ *   Validating window closing behavior
+ * The class utilizes JUnit 5 for test execution and assertions, with careful handling of
+ * Swing components to ensure thread safety and proper event processing in the test environment.
+ *
+ * @see Winner
+ */
 package comp20050.hexagonalboard;
 
 import javafx.scene.paint.Color;

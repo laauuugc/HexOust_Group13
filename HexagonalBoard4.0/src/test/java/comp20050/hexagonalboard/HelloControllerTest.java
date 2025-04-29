@@ -1,3 +1,22 @@
+/**
+ * This class implements unit tests for the HelloController class, which manages the game logic
+ * for the HexOust hexagonal board game. The tests follow the FIRST principles:
+ *   Fast: Tests are designed to run quickly without external dependencies
+ *   Independent: Each test operates in isolation with its own setup
+ *   Repeatable: Tests produce consistent results regardless of environment
+ *   Self-validating: Tests use assertions to automatically verify outcomes
+ *   Timely:Tests are written alongside the implementation code
+ * The test strategy includes:
+ *   Initialization of JavaFX components for UI testing
+ *   Using reflection to access and test private methods and fields
+ *   Testing player management functionality
+ *   Verifying board state and game mechanics
+ *   Testing stone placement and capture logic
+ * The class utilizes JUnit 5 for test execution and assertions, with careful setup
+ * to handle JavaFX components in a test environment.
+ *
+ * @see HelloController
+ */
 package comp20050.hexagonalboard;
 
 import javafx.application.Platform;

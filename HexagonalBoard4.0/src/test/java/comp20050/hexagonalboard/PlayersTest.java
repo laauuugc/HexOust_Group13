@@ -1,3 +1,23 @@
+/**
+ * This class provides comprehensive unit tests for the Players dialog, which handles
+ * player name input and color assignment in the HexOust hexagonal board game. The tests
+ * follow the FIRST principles:
+ *   Fast: Tests execute quickly with minimal UI interaction delays
+ *   Independent: Each test method operates in isolation with fresh dialog instances
+ *   Repeatable: SwingUtilities.invokeAndWait ensures consistent UI thread execution
+ *   Self-validating: JUnit assertions automatically verify expected outcomes
+ *   Timely: Tests are designed to validate core dialog functionality
+ * The test strategy includes:
+ *   Using reflection to access and test private fields
+ *   Testing default name initialization
+ *   Verifying proper retrieval of user-entered player names
+ *   Confirming correct color assignment to players
+ *   Testing dialog cancellation and disposal behavior
+ * The class uses JUnit 5 for test execution and assertions, with special handling
+ * for Swing components to ensure they run properly in the test environment.
+ *
+ * @see Players
+ */
 package comp20050.hexagonalboard;
 
 import org.junit.jupiter.api.BeforeEach;

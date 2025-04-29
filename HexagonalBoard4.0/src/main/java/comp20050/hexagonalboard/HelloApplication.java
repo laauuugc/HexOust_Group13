@@ -1,3 +1,17 @@
+/**
+ * Main application class for HexOust Board game.
+ * This class manages the start sequence of the game, including:
+ *   Displaying the splash screen with the game logo
+ *   Showing the rules dialog to inform players about game mechanics
+ *   Collecting player names through a player information dialog
+ *   Launching the main game board interface
+ * The application uses a combination of Swing components for initial dialogs
+ * and JavaFX for the main game interface. Thread management ensures proper
+ * synchronization between Swing and JavaFX components.
+ * @author Cian Latchford, Federica Fucetola & Laura González Calleja
+ * @version Final Product
+ * @since May 2025
+ */
 package comp20050.hexagonalboard;
 
 import javafx.application.Application;

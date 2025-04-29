@@ -1,3 +1,22 @@
+/**
+ * This class implements systematic unit tests for the Rules dialog, which displays game instructions
+ * to players in the HexOust hexagonal board game. The tests follow the FIRST principles:
+ *   Fast: Tests execute rapidly with minimal wait times
+ *   Independent: Each test operates with a fresh dialog instance via BeforeEach setup
+ *   Repeatable: Using SwingUtilities.invokeAndWait ensures consistent thread management
+ *   Self-validating: JUnit assertions automatically verify dialog state after actions
+ *   Timely: Tests validate core dialog functionality and user interaction patterns
+ * The test strategy includes:
+ *   Properly initializing and disposing of Swing components with BeforeEach/AfterEach hooks
+ *   Testing UI interaction through button clicks
+ *   Verifying keyboard shortcut functionality
+ *   Validating window closing behavior
+ *   Using helper methods to navigate complex component hierarchies
+ * The class utilizes JUnit 5 for test execution and assertions, with careful handling of
+ * Swing components to ensure thread safety and proper event processing in the test environment.
+ *
+ * @see Rules
+ */
 package comp20050.hexagonalboard;
 
 import org.junit.jupiter.api.AfterEach;

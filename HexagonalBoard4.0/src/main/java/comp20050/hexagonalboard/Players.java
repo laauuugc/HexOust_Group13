@@ -1,3 +1,20 @@
+/**
+ * Dialog window for player setup in HexOust game.
+ * Creates a modal dialog that allows players to enter their names
+ * before starting the game. The dialog assigns fixed colors to each player:
+ * "red" for Player 1 and "blue" for Player 2. Once player information is
+ * confirmed through the OK button, the dialog stores this information and
+ * makes it available through getter methods.
+ * The dialog includes:
+ * - Text fields for entering player names
+ * - Visual labels for players and their colors
+ * - An OK button to confirm selections
+ * - Standard dialog behaviors (lose button handling)
+ *
+ * @author Cian Latchford, Federica Fucetola & Laura González Calleja
+ * @version Final Product
+ * @since May 2025
+ */
 package comp20050.hexagonalboard;
 
 import javax.swing.*;

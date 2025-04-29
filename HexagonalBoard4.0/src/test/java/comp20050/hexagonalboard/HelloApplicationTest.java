@@ -1,3 +1,23 @@
+/**
+ * This class provides unit tests for the HelloApplication class, which handles the
+ * application start sequence for the HexOust hexagonal board game. The tests follow
+ * the FIRST principles:
+ *   Fast: Tests execute efficiently with minimal external dependencies
+ *   Independent: Each test uses a fresh application instance through BeforeEach
+ *   Repeatable: Tests maintain consistent behavior across executions
+ *   Self-validating: JUnit assertions verify expected outcomes automatically
+ *   Timely: Tests specifically target key application functionality
+ * The test strategy includes:
+ *   Using reflection to access and test private methods
+ *   Testing UI positioning logic for centering dialogs
+ *   Verifying splash screen display and callback execution
+ *   Confirming successful application launching
+ *   Special considerations for UI thread safety and timing
+ * Note: As indicated in the class comment, these tests should be run individually
+ * to prevent UI component overlap and interaction issues.
+ *
+ * @see HelloApplication
+ */
 package comp20050.hexagonalboard;
 
 import org.junit.jupiter.api.*;
@@ -27,7 +47,7 @@ public class HelloApplicationTest {
         dialog.setSize(300, 200);
 
         // Use reflection to access private method
-        Method method = HelloApplication.class.getDeclaredMethod("centerWindow", JDialog.class);
+        Method method = HelloApplication.class.getDeclaredMethod("centerWindow", Dialog.class);
         method.setAccessible(true);
         method.invoke(app, dialog);
 
