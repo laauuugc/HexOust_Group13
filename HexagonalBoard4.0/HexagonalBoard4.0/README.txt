@@ -23,7 +23,11 @@ Step-by-step:
 1. Open your terminal (Linux/macOS) or Command Prompt (Windows).
 2. Navigate to the folder containing the JAR file using `cd`:
     Example: cd path/to/your/project
-3. Run the JAR file with:  java -jar hexoust.jar
+3. Run the JAR file with:  
+java \
+--module-path /Path/to//javafx-sdk-24/lib \
+--add-modules javafx.controls,javafx.fxml \
+-jar HexOust_S2_BoardWithNC.jar
 
 Notes:
 - The JAR file contains all necessary resources including graphics and UI components.
