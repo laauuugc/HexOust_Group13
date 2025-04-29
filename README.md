@@ -32,7 +32,7 @@ Step-by-step:
    java \
 --module-path /Path/to//javafx-sdk-24/lib \
 --add-modules javafx.controls,javafx.fxml \
--jar HexOust_S2_BoardWithNC.jar
+-jar HexOust_Final.jar
 
 Notes:
 - The JAR file contains all necessary resources including graphics and UI components.
@@ -74,7 +74,7 @@ Step-by-step:
 - `hello-view.fxml` — JavaFX layout for game board
 - Various resource files including images in the resources folder
 - `README.txt` — Instructions
-- `HexOust_S2_BoardWithNC.jar` — JAR file generated from this project for easy execution
+- `HexOust_Final.jar` — JAR file generated from this project for easy execution
 
 ----------------------------------------------------------------------------------------
 
